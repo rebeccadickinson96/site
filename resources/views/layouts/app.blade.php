@@ -10,8 +10,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
 </head>
 <body>
-<h1>{{$name}}</h1>
-<h1>{{$surname}}</h1>
+<h1>Hello</h1>
 @yield('content');
 </body>
 </html>
