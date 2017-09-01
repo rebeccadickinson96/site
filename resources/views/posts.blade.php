@@ -11,12 +11,16 @@
                             <th>Title</th>
                             <th>Body</th>
                             <th>Created At</th>
+                            <th>Action</th>
                         </tr>
                         @foreach($posts as $post)
                             <tr>
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->body }}</td>
                                 <td>{{ $post->created_at }}</td>
+                                <td><a class="btn btn-default pull-left" style="margin-right: 5px;"
+                                       href="/posts/{{ $post->id }}"><i
+                                                class="fa fa-eye"></i></a></td>
                             </tr>
                         @endforeach
                     </table>
