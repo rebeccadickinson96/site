@@ -24,10 +24,15 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Post::class, function (Faker\Generator $faker) {
-    $types = ['form', 'document'];
-
     return [
         'title' => $faker->word,
         'body' => $faker->paragraph
+    ];
+});
+
+$factory->define(App\Category::class, function (Faker\Generator $faker) {
+    return [
+        'category' => $faker->word,
+        'description' => $faker->sentence
     ];
 });
