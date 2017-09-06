@@ -4,24 +4,22 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default panel-rbec">
-                    <div class="panel-heading"><h2>Posts List</h2></div>
+                    <div class="panel-heading"><h2>Categories</h2></div>
                     <div class="panel-body">
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <tr>
+                                    <th>Category Number</th>
                                     <th>Title</th>
-                                    <th>Body</th>
-                                    <th>Created At</th>
-                                    <th>Action</th>
+                                    <th>Description</th>
+                                    <th>Created</th>
                                 </tr>
-                                @foreach($posts as $post)
+                                @foreach($categories as $category)
                                     <tr>
-                                        <td>{{ $post->title }}</td>
-                                        <td>{{ $post->body }}</td>
-                                        <td>{{ $post->created_at }}</td>
-                                        <td><a class="btn btn-default pull-left" style="margin-right: 5px;"
-                                               href="/posts/{{ $post->id }}"><i
-                                                        class="fa fa-eye"></i></a></td>
+                                        <td>{{ $category->id}}</td>
+                                        <td>{{ $category->category}}</td>
+                                        <td>{{ $category->description }}</td>
+                                        <td>{{ $category->created_at->diffForHumans() }}</td>
                                     </tr>
                                 @endforeach
                             </table>
@@ -29,7 +27,7 @@
 
                     </div>
                     <div class="panel-footer">
-                        {{ $posts->render() }}
+                        {{ $categories->render() }}
                     </div>
                 </div>
             </div>
