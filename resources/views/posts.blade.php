@@ -3,35 +3,22 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default panel-rbec">
-                    <div class="panel-heading"><h2>Posts List</h2></div>
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Body</th>
-                                    <th>Created At</th>
-                                    <th>Action</th>
-                                </tr>
-                                @foreach($posts as $post)
-                                    <tr>
-                                        <td>{{ $post->title }}</td>
-                                        <td>{{ $post->body }}</td>
-                                        <td>{{ $post->created_at }}</td>
-                                        <td><a class="btn btn-default pull-left" style="margin-right: 5px;"
-                                               href="/posts/{{ $post->id }}"><i
-                                                        class="fa fa-eye"></i></a></td>
-                                    </tr>
-                                @endforeach
-                            </table>
+
+                @foreach($posts as $post)
+                    <div class="panel panel-default panel-rbec">
+                        <div class="panel-heading">
+                            <h2><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></h2>
+                        </div>
+                        <div class="panel-body">
+                            {{ $post->body }}
                         </div>
 
+                        <div class="panel-footer">
+                            {{ $post->created_at->diffForHumans()}}
+                        </div>
                     </div>
-                    <div class="panel-footer">
-                        {{ $posts->render() }}
-                    </div>
-                </div>
+                @endforeach
+                {{ $posts->render() }}
             </div>
         </div>
     </div>
