@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-default navbar-static-top blog-masthead">
     <div class="container">
         <div class="navbar-header">
 
@@ -12,7 +12,7 @@
             </button>
 
             <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand nav-link" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
         </div>
@@ -20,12 +20,13 @@
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
-                &nbsp;
+
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/posts">Posts</a></li>
-                <li><a href="/categories">Categories</a></li>
+                <li><a class="nav-link" href="/posts">Posts</a></li>
+                <li><a class="nav-link" href="/categories">Categories</a></li>
+                <li><a class="nav-link" href="">Login</a></li>
             </ul>
         </div>
     </div>
