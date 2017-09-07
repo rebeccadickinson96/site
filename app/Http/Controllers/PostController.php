@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Category;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -12,7 +13,7 @@ class PostController extends Controller
     {
         $posts = Post::orderBy('title')->paginate($this->pagination);
 
-        return view('posts', compact('posts','name','surname'));
+        return view('posts.index', compact('posts','name','surname'));
     }
 
     public function show(Post $post){

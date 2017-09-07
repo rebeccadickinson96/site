@@ -1,24 +1,32 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
+        {{ config('app.name', 'Laravel') }}
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-
+            <div class="col-md-8">
                 @foreach($posts as $post)
-                    <div class="panel panel-default panel-rbec">
-                        <div class="panel-heading">
+                    <div class="blog-post">
+                        <div class="blog-post-title">
                             <h2><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></h2>
                         </div>
-                        <div class="panel-body">
-                            {{ $post->body }}
-                        </div>
-
-                        <div class="panel-footer">
-                            {{ $post->created_at->diffForHumans()}}
-                        </div>
+                        <div class="blog-post-meta">{{ $post->created_at->diffForHumans()}}</div>
+                        {{ $post->body }}
                     </div>
                 @endforeach
                 {{ $posts->render() }}
+            </div>
+
+            <div class="col-md-4">
+                <div class="blog-sidebar">
+                    <div class="sidebar-module">
+                        <h2>Categories</h2>
+                        <ol class="list-unstyled">
+                            @foreach($categories as $cat)
+                                <li><a href="">{{$cat->category}}</a></li>
+                            @endforeach
+                        </ol>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

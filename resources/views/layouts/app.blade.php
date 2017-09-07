@@ -18,6 +18,7 @@
     <link href="/css/styles.css" rel="stylesheet">
     <link href="/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/blog.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lity/2.2.2/lity.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
 
@@ -31,11 +32,12 @@
 </head>
 <body>
 <div id="app">
-    <h1>Hello</h1>
+@include('layouts.nav')
 
-        @yield('content')
+@yield('content')
 
-    <!-- Scripts -->
+<!-- Scripts -->
+
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript" src="/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
