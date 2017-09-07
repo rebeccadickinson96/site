@@ -31,11 +31,12 @@
 </head>
 <body>
 <div id="app">
-    <h1>Hello</h1>
+@include('layouts.nav')
 
-        @yield('content')
+@yield('content')
 
-    <!-- Scripts -->
+<!-- Scripts -->
+
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript" src="/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
