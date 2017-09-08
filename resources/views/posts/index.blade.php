@@ -4,7 +4,9 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default panel-rbec">
-                    <div class="panel-heading"><h2>Posts List</h2></div>
+                    <div class="panel-heading">
+                        <h2>Posts List<a href="/posts/create" class="btn-add btn btn-primary pull-right">New Post +</a></h2>
+                    </div>
                     <div class="panel-body">
                         <div class="table-responsive">
                             <table class="table table-striped">

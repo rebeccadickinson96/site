@@ -13,10 +13,14 @@
 
 
 Route::get('/', 'HomeController@index');
+
+//posts
 Route::get('/posts/', 'PostController@index');
+Route::get('/posts/create', 'PostController@create');
+Route::post('posts/', 'PostController@store');
 Route::get('/posts/{post}', 'PostController@show');
+
 
 //categories
 Route::get('/categories', 'CategoryController@index');
-
 Route::get('/posts/category/{category}', 'CategoryController@index');
