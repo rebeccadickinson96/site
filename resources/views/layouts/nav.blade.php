@@ -24,9 +24,33 @@
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="nav-link" href="/posts">Posts</a></li>
-                <li><a class="nav-link" href="/categories">Categories</a></li>
-                <li><a class="nav-link" href="">Login</a></li>
+                @if (Auth::guest())
+                    <li><a class="nav-link" href="/login">Login</a></li>
+                @else
+                    <li><a class="nav-link" href="/posts">Posts</a></li>
+                    <li><a class="nav-link" href="/categories">Categories</a></li>
+                    <li class="dropdown" id="userdropdownmenu">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" id="usernamelogout">
+                            <i class="fa fa-user fa-fw"></i> {{ Auth::user()->name }} <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"><i
+                                            class="fa fa-sign-out fa-fw"></i>
+                                    Logout
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-user -->
+                    </li>
+                @endif
             </ul>
         </div>
     </div>
