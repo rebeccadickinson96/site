@@ -16,7 +16,7 @@
                             <strong>{{ $comment->created_at->diffForHumans() }} by user </strong>
                             <li class=list-group-item>
                                 {{ $comment->body }}
-                            </li>gi
+                            </li>
                         @endforeach
                     </ul>
                 @endif

@@ -11,20 +11,22 @@
 |
 */
 
-Auth::routes();
-Route::get('/', 'HomeController@index');
 
+Route::get('/', 'HomeController@index');
+Auth::routes();
 Route::get('/posts/{post}', 'PostController@show');
 
 Route::group(['middleware' => ['auth']], function () {
+
 //posts
-    Route::get('/posts/', 'PostController@index');
-    Route::get('/posts/create', 'PostController@create');
-    Route::post('posts/', 'PostController@store');
-    Route::post('posts/{post}/comments', 'CommentController@store');
+Route::get('/posts/', 'PostController@index');
+Route::get('/posts/create', 'PostController@create');
+Route::post('posts/', 'PostController@store');
+
+Route::post('posts/{post}/comments', 'CommentController@store');
 
 
 //categories
-    Route::get('/categories', 'CategoryController@index');
-    Route::get('/posts/category/{category}', 'CategoryController@index');
+Route::get('/categories', 'CategoryController@index');
+Route::get('/posts/category/{category}', 'CategoryController@index');
 });
