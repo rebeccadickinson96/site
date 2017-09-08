@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Categories Index'])
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-12">
                 <div class="panel panel-default panel-rbec">
                     <div class="panel-heading"><h2>Categories</h2></div>
                     <div class="panel-body">

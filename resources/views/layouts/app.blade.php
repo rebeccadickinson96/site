@@ -32,9 +32,15 @@
 </head>
 <body>
 <div id="app">
-@include('layouts.nav')
+    @include('layouts.nav')
 
-@yield('content')
+    <div class="blog-header">
+        <div class="container">
+            <h1 class="blog-title">{{ $title }}</h1>
+        </div>
+    </div>
+
+    @yield('content')
 
 <!-- Scripts -->
 
