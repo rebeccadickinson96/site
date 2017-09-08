@@ -16,19 +16,7 @@
                         <label for="body">Post</label>
                         <textarea class="form-control" id="body" name="body"></textarea>
                     </div>
-
-                    @if(count($errors))
-                        <div class="form-group">
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    @endif
-
+                    @include ('partials.errors')
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
