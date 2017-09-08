@@ -10,6 +10,8 @@
                         </div>
                         <div class="blog-post-meta">{{ $post->created_at->diffForHumans()}}</div>
                         {{ $post->body }}
+                        <div class="blog-post-meta">Comments:({{ $post->comments->count()}})</div>
+
                     </div>
                 @endforeach
                 {{ $posts->render() }}
