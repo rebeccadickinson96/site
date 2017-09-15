@@ -13,34 +13,42 @@
 
                     <ul class="list-group">
                         @foreach($post->comments as $comment)
-                            <strong>{{ $comment->created_at->diffForHumans() }} by user </strong>
+                            <strong>{{ $comment->created_at->diffForHumans() }} by <a href="#">{{ $comment->commenter_name }}</a> </strong>
                             <li class=list-group-item>
                                 {{ $comment->body }}
                             </li>
                         @endforeach
                     </ul>
                 @endif
-                @if (Auth::guest())
-                    Please Login or register to comment.
-                @else
-                    <h3>Add a Comment: </h3>
-                    <div class="card">
-                        <div class="card-block">
-                            <form method="post" action="/posts/{{$post->id}}/comments">
-                                {{ csrf_field() }}
-                                <div class="form-group">
+
+                <h3>Add a Comment: </h3>
+                <div class="card">
+                    <div class="card-block">
+                        <form method="post" action="/posts/{{$post->id}}/comments">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                @if (Auth::guest())
+                                    Name: <input type="text" value="{{ $post->commenter_name }}" name="commenter_name" placeholder="Please insert your name "> *
+                                @else
+                                    <input type="hidden" value="{{ Auth::user()->name }}" name="commenter_name">
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" value="{{$post->id}}" name="post_id">
                                 <textarea name="body" placeholder="Your comment here..." class="form-control">
 
                                 </textarea>
-                                </div>
-                                @include ('partials.errors')
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+
+
+                            @include ('partials.errors')
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
                     </div>
-                @endif
+                </div>
+
             </div>
         </div>
     </div>
