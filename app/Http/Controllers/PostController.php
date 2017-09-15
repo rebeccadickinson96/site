@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Post;
 use App\Category;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,11 +43,15 @@ class PostController extends Controller
             'body' => 'required'
         ]);
 
-        $post = Post::create([
+        Post::create([
             'title' => $request->input('title'),
-            'body' => $request->input('body')
+            'body' => $request->input('body'),
+            'user_id' => Auth::id()
+
         ]);
 
         return redirect('/posts');
     }
+
+
 }

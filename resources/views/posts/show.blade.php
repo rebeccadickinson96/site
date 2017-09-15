@@ -29,7 +29,8 @@
                             <form method="post" action="/posts/{{$post->id}}/comments">
                                 {{ csrf_field() }}
                                 <div class="form-group">
-                                <textarea name="body" placeholder="Your comment here..." class="form-control">
+                                    <input type="hidden" value="{{$post->id}}" name="post_id">
+                                    <textarea name="body" placeholder="Your comment here..." class="form-control">
 
                                 </textarea>
                                 </div>

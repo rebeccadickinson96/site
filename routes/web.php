@@ -14,7 +14,7 @@
 
 Route::get('/', 'HomeController@index');
 Auth::routes();
-Route::get('/posts/{post}', 'PostController@show');
+
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -30,3 +30,5 @@ Route::post('posts/{post}/comments', 'CommentController@store');
 Route::get('/categories', 'CategoryController@index');
 Route::get('/posts/category/{category}', 'CategoryController@index');
 });
+
+Route::get('/posts/{post}', 'PostController@show');
