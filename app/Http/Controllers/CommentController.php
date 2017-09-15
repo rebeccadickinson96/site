@@ -20,7 +20,7 @@ class CommentController extends Controller
             'post_id' => $request->input('post_id'),
             'body' => $request->input('body'),
             'user_id' => Auth::id(),
-            'commenter_name' => Auth::user()->name
+            'commenter_name' => Auth::guest() ? $request->input('commenter_name') : Auth::user()->name
 
         ]);
         return back();

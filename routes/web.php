@@ -23,7 +23,7 @@ Route::get('/posts/', 'PostController@index');
 Route::get('/posts/create', 'PostController@create');
 Route::post('posts/', 'PostController@store');
 
-Route::post('posts/{post}/comments', 'CommentController@store');
+
 
 
 //categories
@@ -32,3 +32,4 @@ Route::get('/posts/category/{category}', 'CategoryController@index');
 });
 
 Route::get('/posts/{post}', 'PostController@show');
+Route::post('posts/{post}/comments', 'CommentController@store');
