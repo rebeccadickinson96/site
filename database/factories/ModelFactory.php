@@ -1,5 +1,5 @@
 <?php
-
+use Carbon\Carbon;
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -27,7 +27,8 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->word,
         'body' => $faker->paragraph,
-        'user_id' => 1
+        'user_id' => 1,
+        'date_published' => Carbon::now()
     ];
 });
 
