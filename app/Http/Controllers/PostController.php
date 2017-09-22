@@ -16,16 +16,16 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::latest()->paginate($this->pagination);
+        $posts = Post::with('User')->orderBy('date_published', 'desc')->paginate($this->pagination);
 
         return view('posts.index', compact('posts', 'name', 'surname'));
     }
 
     public function show(Post $post)
     {
+        $categories = Category::latest()->get();
 
-
-        return view('posts.show', compact('post'));
+        return view('posts.show', compact('post', 'categories'));
 
     }
 
@@ -38,7 +38,6 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'title' => 'required|max:100',
             'body' => 'required',

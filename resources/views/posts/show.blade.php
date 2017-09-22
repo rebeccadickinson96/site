@@ -3,52 +3,68 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default panel-rbec">
-                    <div class="panel-body">
-                        {{ $post->body }}
+                <div class="col-md-8 blog-main">
+                    <div class="blog-post-meta">Posted {{ $post->date_published->format('d/m/Y H:i')}} by <a>{{ $post->user->name }}</a></div>
+                    <div class="panel panel-default panel-rbec">
+                        <div class="panel-body">
+                            {{ $post->body }}
+                        </div>
                     </div>
-                </div>
-                @if($post->comments->count())
-                    <h2>Comments:</h2>
+                    @if($post->comments->count())
+                        <h2>Comments:</h2>
 
-                    <ul class="list-group">
-                        @foreach($post->comments as $comment)
-                            <strong>{{ $comment->created_at->diffForHumans() }} by <a href="#">{{ $comment->commenter_name }}</a> </strong>
-                            <li class=list-group-item>
-                                {{ $comment->body }}
-                            </li>
-                        @endforeach
-                    </ul>
-                @endif
+                        <ul class="list-group">
+                            @foreach($post->comments as $comment)
+                                <strong>{{ $comment->created_at->diffForHumans() }} by <a
+                                            href="#">{{ $comment->commenter_name }}</a> </strong>
+                                <li class=list-group-item>
+                                    {{ $comment->body }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
 
-                <h3>Add a Comment: </h3>
-                <div class="card">
-                    <div class="card-block">
-                        <form method="post" action="/posts/{{$post->id}}/comments">
-                            {{ csrf_field() }}
-                            <div class="form-group">
-                                @if (Auth::guest())
-                                    Name: <input type="text" value="{{ $post->commenter_name }}" name="commenter_name" placeholder="Please insert your name "> *
-                                @else
-                                    <input type="hidden" value="{{ Auth::user()->name }}" name="commenter_name">
-                                @endif
-                            </div>
-                            <div class="form-group">
-                                <input type="hidden" value="{{$post->id}}" name="post_id">
-                                <textarea name="body" placeholder="Your comment here..." class="form-control">
+                    <h3>Add a Comment: </h3>
+                    <div class="card">
+                        <div class="card-block">
+                            <form method="post" action="/posts/{{$post->id}}/comments">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    @if (Auth::guest())
+                                        Name: <input type="text" value="{{ $post->commenter_name }}"
+                                                     name="commenter_name" placeholder="Please insert your name "> *
+                                    @else
+                                        <input type="hidden" value="{{ Auth::user()->name }}" name="commenter_name">
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" value="{{$post->id}}" name="post_id">
+                                    <textarea name="body" placeholder="Your comment here..." class="form-control">
 
                                 </textarea>
-                            </div>
+                                </div>
 
 
-                            @include ('partials.errors')
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
+                                @include ('partials.errors')
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-
+                <div class="col-md-4">
+                    <div class="blog-sidebar">
+                        <div class="sidebar-module">
+                            <h2>Categories</h2>
+                            <ol class="list-unstyled">
+                                @foreach($categories as $cat)
+                                    <li><a href="">{{$cat->category}}</a></li>
+                                @endforeach
+                            </ol>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
