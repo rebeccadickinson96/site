@@ -6,6 +6,7 @@ use App\Comment;
 use App\Post;
 use App\Category;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,13 +41,15 @@ class PostController extends Controller
 
         $this->validate($request, [
             'title' => 'required|max:100',
-            'body' => 'required'
+            'body' => 'required',
+            'date_published' => 'required'
         ]);
 
         Post::create([
             'title' => $request->input('title'),
             'body' => $request->input('body'),
-            'user_id' => Auth::id()
+            'user_id' => Auth::id(),
+            'date_published' => Carbon::createFromFormat('d/m/Y H:i', $request->input('date_published'))
 
         ]);
 

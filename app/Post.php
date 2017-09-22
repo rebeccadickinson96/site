@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'body', 'user_id'];
+    protected $fillable = ['title', 'body', 'user_id', 'date_published'];
+    protected $date = ['date_published'];
+
 
 
     public function comments()
