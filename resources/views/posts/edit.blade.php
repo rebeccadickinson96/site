@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <form method="post" action="/posts">
+                <form method="post" action="/posts/{{$post->id}}">
 
                     {{csrf_field()}}
 
@@ -21,7 +21,7 @@
                     <div class="form-group">
                         <label for="date_published">Date Created</label>
                         <input type="text" class="form-control timepicker" id="date_published" name="date_published"
-                               value="{{ old('date_published', $post->date_published) }}">
+                               value="{{ old('date_published', $post->date_published ? $post->date_published->format('d/m/Y H:i') :Carbon\Carbon::now()->format('d/m/Y H:i')) }}">
                     </div>
                     @include ('partials.errors')
                     <div class="form-group">

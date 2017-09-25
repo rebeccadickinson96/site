@@ -23,7 +23,10 @@
                                         <td>{{ $post->date_published->diffForHumans() }}</td>
                                         <td><a class="btn btn-default pull-left" style="margin-right: 5px;"
                                                href="/posts/{{ $post->id }}"><i
-                                                        class="fa fa-eye"></i></a></td>
+                                                        class="fa fa-eye"></i></a>
+                                            <a class="btn btn-default pull-left" style="margin-right: 5px;"
+                                               href="/posts/{{ $post->id }}/edit"><i
+                                                        class="fa fa-edit"></i></a></td>
                                     </tr>
                                 @endforeach
                             </table>
