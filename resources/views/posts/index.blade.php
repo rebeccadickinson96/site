@@ -20,7 +20,7 @@
                                     <tr>
                                         <td>{{ $post->title }}</td>
                                         <td>{{ $post->body }}</td>
-                                        <td>{{ $post->created_at->diffForHumans() }}</td>
+                                        <td>{{ $post->date_published->diffForHumans() }}</td>
                                         <td><a class="btn btn-default pull-left" style="margin-right: 5px;"
                                                href="/posts/{{ $post->id }}"><i
                                                         class="fa fa-eye"></i></a></td>

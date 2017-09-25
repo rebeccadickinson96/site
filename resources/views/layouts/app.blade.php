@@ -21,6 +21,8 @@
     <link href="{{ asset('css/blog.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lity/2.2.2/lity.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/jquery.datetimepicker.min.css">
 
     <!-- Scripts -->
     <script>
@@ -50,10 +52,13 @@
     @yield('vue-mixins')
     @yield('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lity/2.2.2/lity.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.1/jquery.datetimepicker.min.js"></script>
     <script>
         $(function () {
             $(".datepicker").datepicker({
-                dateFormat: "dd/mm/yy"
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "d/m/Y"
             });
         });
         $(document.location.hash).click();
@@ -64,7 +69,7 @@
         }, 2000);
 
         $('.timepicker').datetimepicker({
-            format: 'dd/mm/yyyy hh:ii',
+            format: 'd/m/Y H:i',
             startView: 1,
             minuteStep: 15,
             autoclose: true

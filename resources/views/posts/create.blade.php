@@ -16,6 +16,12 @@
                         <label for="body">Post</label>
                         <textarea class="form-control" id="body" name="body"></textarea>
                     </div>
+
+                    <div class="form-group">
+                        <label for="date_published">Date Created</label>
+                        <input type="text" class="form-control timepicker" id="date_published" name="date_published"
+                               value="{{ Carbon\Carbon::now()->format('d/m/Y H:i') }}">
+                    </div>
                     @include ('partials.errors')
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Submit</button>

@@ -8,7 +8,7 @@
                         <div class="blog-post-title">
                             <h2><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></h2>
                         </div>
-                        <div class="blog-post-meta">{{ $post->created_at->diffForHumans()}} by {{ $post->user->name }}</div>
+                        <div class="blog-post-meta">{{ $post->date_published->diffForHumans()}} by <a>{{ $post->user->name }}</a></div>
                         {{ $post->body }}
                         <div class="blog-post-meta">Comments:({{ $post->comments->count()}})</div>
 
