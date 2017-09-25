@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Create a post'])
+@extends('layouts.app', ['title' => 'Edit a post'])
 @section('content')
     <div class="container">
         <div class="row">
@@ -9,18 +9,19 @@
 
                     <div class="form-group">
                         <label for="title">Title</label>
-                        <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
+                        <input type="text" class="form-control" id="title" name="title"
+                               value="{{ old('title', $post->title) }}">
                     </div>
 
                     <div class="form-group">
                         <label for="body">Post</label>
-                        <textarea class="form-control" id="body" name="body" value="{{ old('body') }}"></textarea>
+                        <textarea class="form-control" id="body" name="body">{{ old('body', $post->body) }}</textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="date_published">Date Created</label>
                         <input type="text" class="form-control timepicker" id="date_published" name="date_published"
-                               value="{{ old('date_published')?:Carbon\Carbon::now()->format('d/m/Y H:i') }}">
+                               value="{{ old('date_published', $post->date_published) }}">
                     </div>
                     @include ('partials.errors')
                     <div class="form-group">

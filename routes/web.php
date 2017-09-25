@@ -19,16 +19,16 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
 
 //posts
-Route::get('/posts/', 'PostController@index');
-Route::get('/posts/create', 'PostController@create');
-Route::post('posts/', 'PostController@store');
-
-
+    Route::get('/posts/', 'PostController@index');
+    Route::get('/posts/create', 'PostController@create');
+    Route::post('posts/', 'PostController@store');
+    Route::get('posts/{post}/edit', 'PostController@edit');
+    Route::post('posts/{post}', 'PostController@update');
 
 
 //categories
-Route::get('/categories', 'CategoryController@index');
-Route::get('/posts/category/{category}', 'CategoryController@index');
+    Route::get('/categories', 'CategoryController@index');
+    Route::get('/posts/category/{category}', 'CategoryController@index');
 });
 
 Route::get('/posts/{post}', 'PostController@show');
