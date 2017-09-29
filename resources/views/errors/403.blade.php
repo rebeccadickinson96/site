@@ -1,4 +1,4 @@
-@extends('layouts.app',['title' => '404 Page Not Found!'])
+@extends('layouts.app',['title' => '403 Access Denied!'])
 
 @section('content')
     <div class="container">
@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <h3 class="text-center">Looks like this page does not exist.</h3>
+                        <h3 class="text-center">You do not have permission to view this page.</h3>
                     </div>
                 </div>
             </div>
