@@ -5,7 +5,8 @@
             <div class="col-md-12">
                 <div class="panel panel-default panel-rbec">
                     <div class="panel-heading">
-                        <h2>Posts List<a href="/posts/create" class="btn-add btn btn-primary pull-right">New Post +</a></h2>
+                        <h2>Posts List<a href="/posts/create" class="btn-add btn btn-primary pull-right">New Post +</a>
+                        </h2>
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
@@ -19,11 +20,14 @@
                                 @foreach($posts as $post)
                                     <tr>
                                         <td>{{ $post->title }}</td>
-                                        <td>{{ $post->body }}</td>
+                                        <td>{{ strlen($post->body)>75 ? substr($post->body,0,75)."..." : $post->body}}</td>
                                         <td>{{ $post->date_published->diffForHumans() }}</td>
                                         <td><a class="btn btn-default pull-left" style="margin-right: 5px;"
                                                href="/posts/{{ $post->id }}"><i
-                                                        class="fa fa-eye"></i></a></td>
+                                                        class="fa fa-eye"></i></a>
+                                            <a class="btn btn-default pull-left" style="margin-right: 5px;"
+                                               href="/posts/{{ $post->id }}/edit"><i
+                                                        class="fa fa-edit"></i></a></td>
                                     </tr>
                                 @endforeach
                             </table>

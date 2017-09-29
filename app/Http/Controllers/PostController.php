@@ -55,5 +55,27 @@ class PostController extends Controller
         return redirect('/posts');
     }
 
+    public function edit(Post $post)
+    {
+        return view('posts.edit', compact('post'));
+    }
 
+    public function update(Request $request, Post $post)
+    {
+        $this->validate($request, [
+            'title' => 'required|max:100',
+            'body' => 'required',
+            'date_published' => 'required'
+        ]);
+
+        $post->update([
+            'title' => $request->input('title'),
+            'body' => $request->input('body'),
+            'user_id' => Auth::id(),
+            'date_published' => Carbon::createFromFormat('d/m/Y H:i', $request->input('date_published'))
+
+        ]);
+
+        return redirect('/posts/' . $post->id);
+    }
 }
