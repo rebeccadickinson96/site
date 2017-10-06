@@ -78,4 +78,12 @@ class PostController extends Controller
 
         return redirect('/posts/' . $post->id);
     }
+
+    public function destroy(Post $post)
+    {
+        $title = $post->title;
+        $post->delete();
+
+        return redirect()->back()->with(['success' => 'Successfully deleted ' . $title]);
+    }
 }

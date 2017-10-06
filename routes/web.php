@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('posts/', 'PostController@store');
     Route::get('posts/{post}/edit', 'PostController@edit');
     Route::post('posts/{post}', 'PostController@update');
+    Route::delete('posts/{post}', 'PostController@destroy');
 
 
 //categories
