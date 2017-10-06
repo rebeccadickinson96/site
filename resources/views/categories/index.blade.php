@@ -1,10 +1,13 @@
 @extends('layouts.app', ['title' => 'Categories Index'])
 @section('content')
-    <div class="container">
+    <div id="categories" class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default panel-rbec">
-                    <div class="panel-heading"><h2>Categories</h2></div>
+                    <div class="panel-heading"><h2>Categories<a href="#" class="btn-add btn btn-primary pull-right" data-toggle="modal"
+                                                                     data-target="#addCategoryModal">Add Category +</a></h2>
+                    </div>
+                    @include('partials.success-message')
                     <div class="panel-body">
                         <div class="table-responsive">
                             <table class="table table-striped">
@@ -32,5 +35,93 @@
                 </div>
             </div>
         </div>
+
+        <div id="addCategoryModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="resetData"
+                        ><span
+                                    aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Add Category</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addCategoryForm" action="/categories" method="post">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <label>Category<span class="text-danger">*</span></label>
+                                <input v-model="category" type="text" name="category" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Description (Optional)</label>
+                                <input v-model="description" type="text" name="description" class="form-control">
+
+                            </div>
+                        </form>
+                        <div v-show="hasErrors" class="alert alert-danger">
+                            <li v-for="error in errors">@{{ error }}</li>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" @click="resetData">
+                            Cancel</button>
+                        <button type="button" class="btn btn-primary" @click="addCategory">
+                            Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+@endsection
+@section('vue-mixins')
+    <script>
+        new Vue({
+            el: '#categories',
+            data: {
+                category: '',
+                description: '',
+                activeCategory: {
+                    id: '',
+                    category: '',
+                    description: ''
+                },
+                hasErrors: false,
+                errors: []
+            },
+            methods: {
+                resetData: function () {
+                    this.category = '';
+                    this.description = '';
+                    this.resetErrors();
+                },
+                setActiveCategory: function (id, category, description) {
+                    this.activeCategory.id = id;
+                    this.activeCategory.category = category;
+                    this.activeCategory.description = description;
+                },
+                addCategory: function () {
+                    this.checkErrors();
+
+                    if (!this.hasErrors) {
+                        document.getElementById('addCategoryForm').submit();
+                    }
+                },
+                editCategory: function () {
+                    document.getElementById().submit();
+                },
+                checkErrors: function () {
+                    this.resetErrors();
+
+                    if (this.category == '') {
+                        this.hasErrors = true;
+                        this.errors.push('Category field is required');
+                    }
+                },
+                resetErrors: function () {
+                    this.hasErrors = false;
+                    this.errors = [];
+                },
+            }
+        })
+    </script>
 @endsection
