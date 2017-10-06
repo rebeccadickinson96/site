@@ -16,6 +16,7 @@
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th>Created</th>
+                                    <th>Action</th>
                                 </tr>
                                 @foreach($categories as $category)
                                     <tr>
@@ -23,6 +24,11 @@
                                         <td>{{ $category->category}}</td>
                                         <td>{{ $category->description }}</td>
                                         <td>{{ $category->created_at->diffForHumans() }}</td>
+                                        <td><a href="#" class="btn btn-default pull-left"
+                                               data-toggle="modal" data-target="#editCategoryModal"
+                                               style="margin-right: 5px;"
+                                               @click="setActiveCategory({{ $category->id }}, '{{ $category->category }}', '{{ $category->description }}')"><i
+                                                        class="fa fa-edit"></i></a></td>
                                     </tr>
                                 @endforeach
                             </table>
@@ -71,6 +77,42 @@
                 </div>
             </div>
         </div>
+
+        <div id="editCategoryModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        ><span
+                                    aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Edit Category</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editCategoryForm" :action="'/categories/'+activeCategory.id" method="post">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <label>Category<span class="text-danger">*</span></label>
+                                <input v-model="activeCategory.category" type="text" name="category"
+                                       class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <input v-model="activeCategory.description" type="text" name="description"
+                                       class="form-control">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button type="button" class="btn btn-primary" @click="editCategory">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 @section('vue-mixins')
@@ -107,7 +149,7 @@
                     }
                 },
                 editCategory: function () {
-                    document.getElementById().submit();
+                    document.getElementById('editCategoryForm').submit();
                 },
                 checkErrors: function () {
                     this.resetErrors();
