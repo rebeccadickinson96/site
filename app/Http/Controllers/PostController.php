@@ -44,7 +44,7 @@ class PostController extends Controller
             'date_published' => 'required'
         ]);
 
-        Post::create([
+        $post = Post::create([
             'title' => $request->input('title'),
             'body' => $request->input('body'),
             'user_id' => Auth::id(),
@@ -52,7 +52,7 @@ class PostController extends Controller
 
         ]);
 
-        return redirect('/posts');
+        return redirect('/posts')->with(['success' => 'Successfully created ' . $post->title]);
     }
 
     public function edit(Post $post)
@@ -77,5 +77,13 @@ class PostController extends Controller
         ]);
 
         return redirect('/posts/' . $post->id);
+    }
+
+    public function destroy(Post $post)
+    {
+        $title = $post->title;
+        $post->delete();
+
+        return redirect()->back()->with(['success' => 'Successfully deleted ' . $title]);
     }
 }
