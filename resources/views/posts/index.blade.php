@@ -8,6 +8,7 @@
                         <h2>Posts List<a href="/posts/create" class="btn-add btn btn-primary pull-right">New Post +</a>
                         </h2>
                     </div>
+                    @include('partials.success-message')
                     <div class="panel-body">
                         <div class="table-responsive">
                             <table class="table table-striped">
