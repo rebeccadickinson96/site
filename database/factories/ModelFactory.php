@@ -38,3 +38,14 @@ $factory->define(App\Category::class, function (Faker\Generator $faker) {
         'description' => $faker->sentence
     ];
 });
+
+$factory->define(App\Comment::class, function (Faker\Generator $faker) {
+    return [
+        'post_id' => function () {
+            return factory(App\Post::class)->create()->id;
+        },
+        'body' => $faker->paragraph,
+        'user_id' => null,
+        'commenter_name' => 'Rebecca Dickinson'
+    ];
+});
