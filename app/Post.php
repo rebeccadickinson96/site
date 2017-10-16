@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
@@ -11,7 +12,6 @@ class Post extends Model
     protected $dates = ['date_published'];
 
 
-
     public function comments()
     {
         return $this->hasMany(Comment::class);
@@ -19,8 +19,10 @@ class Post extends Model
 
     public function User()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
+
+
 
     public function addComment($body)
     {
@@ -29,5 +31,18 @@ class Post extends Model
 
         return back();
     }
+
+    public function scopeFilter($query)
+    {
+        if ($month = request('month')) {
+            $query->whereMonth('date_published', Carbon::parse($month)->month);
+        }
+
+        if ($year = request('year')) {
+            $query->whereYear('date_published', $year);
+        }
+        return $query;
+    }
+
 }
 
