@@ -22,7 +22,10 @@ class Post extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-
+    public function categories()
+    {
+        return $this->belongsToMany('App\Category', 'category_posts');
+    }
 
     public function addComment($body)
     {
