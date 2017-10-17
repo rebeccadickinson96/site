@@ -44,5 +44,13 @@ class Post extends Model
         return $query;
     }
 
+    public static function archives(){
+        return static::selectRaw('year(date_published) year, monthname(date_published) month, count(*) published')
+            ->groupBy('year', 'month')
+            ->orderByRaw('min(date_published) desc')
+            ->get()
+            ->toArray();
+    }
+
 }
 

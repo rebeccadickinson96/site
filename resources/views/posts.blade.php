@@ -14,7 +14,7 @@
 
                     </div>
                 @endforeach
-{{--                {{ $posts->render() }}--}}
+                {{ $posts->render() }}
             </div>
 
             @include('partials.sidebar')
