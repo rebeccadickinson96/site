@@ -10,10 +10,15 @@ use App\Category;
 class HomeController extends Controller
 {
     protected $pagination = 10;
+
     public function index()
     {
-        $posts = Post::with('user')->where('date_published', '<' , Carbon::now())->orderBy('date_published', 'desc')->paginate($this->pagination);
-        $categories = Category::latest()->get();
-        return view('posts', compact('posts','categories','name','surname'));
+        $posts = Post::with('user')
+            ->where('date_published', '<', Carbon::now())
+            ->orderBy('date_published', 'desc')
+            ->filter()
+            ->paginate($this->pagination);
+
+        return view('posts', compact('posts'));
     }
 }
