@@ -16,4 +16,9 @@ class Category extends Model
     public static function allCategories(){
         return static::whereHas('posts')->latest()->get();
     }
+
+    public function getRouteKeyName()
+    {
+        return 'category';
+    }
 }

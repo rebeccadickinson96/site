@@ -51,4 +51,11 @@ class CategoryController extends Controller
 
         return redirect()->back()->with(['success' => 'Successfully deleted category.']);
     }
+
+    public function filterTag(Category $category){
+
+        $posts = $category->posts()->with('User')->orderBy('date_published', 'desc')->paginate($this->pagination);
+
+        return view('posts', compact('posts'));
+    }
 }

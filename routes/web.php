@@ -34,6 +34,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('categories/{category}', 'CategoryController@update');
     Route::delete('categories/{category}', 'CategoryController@destroy');
 });
-
+Route::get('/tag/{category}', 'CategoryController@filterTag');
 Route::get('/posts/{post}', 'PostController@show');
 Route::post('posts/{post}/comments', 'CommentController@store');
