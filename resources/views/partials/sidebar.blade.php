@@ -5,7 +5,7 @@
             <ol class="list-unstyled">
                 @foreach($archives as $date)
                     <li>
-                        <a href="/?month={{ $date['month'] }}&year={{ $date['year'] }}">{{ $date['month'].' '. $date['year'] }}</a>
+                        <a href="/?month={{ $date['month'] }}&year={{ $date['year'] }}">{{ $date['month'].' '. $date['year'].' ('. $date->count().')'}}</a>
                     </li>
                 @endforeach
             </ol>
@@ -15,7 +15,7 @@
             <h2>Categories</h2>
             <ol class="list-unstyled">
                 @foreach($categories as $cat)
-                    <li><a href="">{{$cat->category}}</a></li>
+                    <li><a href="/tag/{{$cat->category}}">{{$cat->category .' ('.$cat->posts()->count().')'}}</a></li>
                 @endforeach
             </ol>
         </div>
