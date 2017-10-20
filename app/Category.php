@@ -14,6 +14,6 @@ class Category extends Model
     }
 
     public static function allCategories(){
-        return static::latest()->get();
+        return static::whereHas('posts')->latest()->get();
     }
 }
