@@ -51,7 +51,7 @@ class PostController extends Controller
             'date_published' => Carbon::createFromFormat('d/m/Y H:i', $request->input('date_published'))
 
         ]);
-
+         $post->addCategories($request->input('categories'));
         return redirect('/posts')->with(['success' => 'Successfully created ' . $post->title]);
     }
 
@@ -63,7 +63,6 @@ class PostController extends Controller
 
     public function update(Request $request, Post $post)
     {
-        dd($request->input('categories'));
         $this->validate($request, [
             'title' => 'required|max:100',
             'body' => 'required',
@@ -81,8 +80,17 @@ class PostController extends Controller
         return redirect('/posts/' . $post->id);
     }
 
-    public function addCategory(){
+    public function addCategory(Request $request){
+        $this->validate($request, [
+            'category' => 'required',
+        ]);
 
+        $category = Category::create([
+            'category' => $request->input('category'),
+        ]);
+
+
+        return json_encode(['id' => $category->id, 'category' => $category->category]);
     }
 
     public function destroy(Post $post)

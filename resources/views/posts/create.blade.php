@@ -55,7 +55,38 @@
 
             </div>
         </div>
-
+        <div id="addCategoryModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="resetData"
+                        ><span
+                                    aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Add Category</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addCategoryForm" action="/posts/create/categories" method="post">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <label>Category<span class="text-danger">*</span></label>
+                                <input v-model="category" type="text" name="category" class="form-control">
+                            </div>
+                        </form>
+                        <div v-show="hasErrors" class="alert alert-danger">
+                            <li v-for="error in errors">@{{ error }}</li>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" @click="resetData">
+                            Cancel
+                        </button>
+                        <button type="button" class="btn btn-primary" @click="addCategory">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 @section('vue-mixins')
@@ -77,7 +108,21 @@
                     this.checkErrors();
 
                     if (!this.hasErrors) {
-                        document.getElementById('addCategoryForm').submit();
+                        axios.post('/posts/create/categories',{
+                            category: this.category
+                        })
+                            .then(function (response) {
+                                var $categories = $('#categories');
+                                if(!$categories.has('.checkbox').length){
+                                    $categories.html('');
+                                }
+                                $('#addCategoryModal').modal('hide');
+                                $categories.append('<div class="checkbox col-xs-12">' +
+                                    '<label><input type="checkbox" name="categories['+ response.data.id +'][category]" value="'+ response.data.id +'"> '+ response.data.category +'</label></div>');
+                            })
+                            .catch(function (error) {
+                                console.log('There was an error');
+                            });
                     }
                 },
                 checkErrors: function () {

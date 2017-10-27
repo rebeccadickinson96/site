@@ -40,6 +40,24 @@ class Post extends Model
         return back();
     }
 
+    public function addCategories($categories){
+        $this->categoryPost()->where('post_id', $this->id)->delete();
+        if(!$categories){
+            return false;
+        }
+
+        foreach($categories as $category){
+            if(!$category || !$category['category']){
+                continue;
+            }
+            CategoryPost::create([
+                'post_id' => $this->id,
+                'category_id' => $category['category']
+            ]);
+        }
+        return true;
+    }
+
     public function scopeFilter($query)
     {
         if ($month = request('month')) {
