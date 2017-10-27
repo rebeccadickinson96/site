@@ -31,8 +31,8 @@ class PostController extends Controller
 
     public function create()
     {
-
-        return view('posts.create');
+        $categories = Category::latest()->get();
+        return view('posts.create', compact('categories'));
 
     }
 
@@ -57,11 +57,13 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        return view('posts.edit', compact('post'));
+        $categories= Category::latest()->get();
+        return view('posts.edit', compact('post', 'categories'));
     }
 
     public function update(Request $request, Post $post)
     {
+        dd($request->input('categories'));
         $this->validate($request, [
             'title' => 'required|max:100',
             'body' => 'required',
@@ -77,6 +79,10 @@ class PostController extends Controller
         ]);
 
         return redirect('/posts/' . $post->id);
+    }
+
+    public function addCategory(){
+
     }
 
     public function destroy(Post $post)

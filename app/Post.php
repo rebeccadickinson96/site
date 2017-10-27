@@ -27,6 +27,11 @@ class Post extends Model
         return $this->belongsToMany('App\Category', 'category_posts');
     }
 
+    public function categoryPost()
+    {
+        return $this->hasMany('App\CategoryPost');
+    }
+
     public function addComment($body)
     {
 

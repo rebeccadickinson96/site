@@ -1,6 +1,6 @@
 @extends('layouts.app', ['title' => 'Create a post'])
 @section('content')
-    <div class="container">
+    <div class="container" id="createPosts">
         <div class="row">
             <div class="col-md-12">
                 <form method="post" action="/posts">
@@ -22,6 +22,31 @@
                         <input type="text" class="form-control timepicker" id="date_published" name="date_published"
                                value="{{ old('date_published')?:Carbon\Carbon::now()->format('d/m/Y H:i') }}">
                     </div>
+
+                    <div class="form-group">
+                        <p>Post Categories</p>
+                        <div class="categories" id="categories">
+                            @foreach($categories as $category)
+                                <div class="checkbox col-xs-12">
+                                    <label class=@if(old('categories.'.$category->id.'.category') == $category->id)
+                                            checked
+                                            @endif>
+                                        <input type="checkbox" name="categories[{{ $category->id }}][category]"
+                                               value="{{ $category->id }}"
+                                               @if(old('categories.'.$category->id.'.category') == $category->id)
+                                               checked
+                                                @endif
+                                        >
+                                        {{ $category->category }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                        <a href="#" data-toggle="modal" data-target="#addCategoryModal" class="btn-add btn btn-primary">
+                            Add category
+                        </a>
+                    </div>
+
                     @include ('partials.errors')
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -30,5 +55,44 @@
 
             </div>
         </div>
+
     </div>
+@endsection
+@section('vue-mixins')
+    <script>
+        new Vue({
+            el: '#createPosts',
+            data: {
+                category: '',
+                hasErrors: false,
+                errors: []
+            },
+            methods: {
+                resetData: function () {
+                    this.category = '';
+                    this.resetErrors();
+                },
+
+                addCategory: function () {
+                    this.checkErrors();
+
+                    if (!this.hasErrors) {
+                        document.getElementById('addCategoryForm').submit();
+                    }
+                },
+                checkErrors: function () {
+                    this.resetErrors();
+
+                    if (this.category == '') {
+                        this.hasErrors = true;
+                        this.errors.push('Category field is required');
+                    }
+                },
+                resetErrors: function () {
+                    this.hasErrors = false;
+                    this.errors = [];
+                },
+            }
+        })
+    </script>
 @endsection

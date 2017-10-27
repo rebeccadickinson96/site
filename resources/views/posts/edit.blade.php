@@ -23,6 +23,30 @@
                         <input type="text" class="form-control timepicker" id="date_published" name="date_published"
                                value="{{ old('date_published', $post->date_published ? $post->date_published->format('d/m/Y H:i') :Carbon\Carbon::now()->format('d/m/Y H:i')) }}">
                     </div>
+                    <div class="form-group">
+                        <p>Post Categories</p>
+                        <div class="categories" id="categories">
+                            @foreach($categories as $category)
+                                <div class="checkbox col-xs-12">
+                                    <label class=@if($category->id == $post->categoryPost->contains('category_id', $category->id))
+                                            checked
+                                            @endif>
+                                        <input type="checkbox" name="categories[{{ $category->id }}][category]"
+                                               value="{{ $category->id }}"
+                                               @if($category->id == $post->categoryPost->contains('category_id', $category->id))
+                                               checked
+                                                @endif
+                                        >
+                                        {{ $category->category }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                        <a href="#" data-toggle="modal" data-target="#editCategoryModal" class="btn-add btn btn-primary">
+                            Add category
+                        </a>
+                    </div>
+
                     @include ('partials.errors')
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Submit</button>
