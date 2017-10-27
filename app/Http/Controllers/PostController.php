@@ -76,7 +76,7 @@ class PostController extends Controller
             'date_published' => Carbon::createFromFormat('d/m/Y H:i', $request->input('date_published'))
 
         ]);
-
+        $post->addCategories($request->input('categories'));
         return redirect('/posts/' . $post->id);
     }
 
