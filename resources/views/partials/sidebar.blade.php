@@ -15,7 +15,7 @@
             <h2>Categories</h2>
             <ol class="list-unstyled">
                 @foreach($categories as $cat)
-                    <li><a href="/tag/{{$cat->id}}?{{ $cat->category }}">{{$cat->category .' ('.$cat->posts()->count().')'}}</a></li>
+                    <li><a href="/tag/{{ $cat->category }}">{{$cat->category .' ('.$cat->posts()->count().')'}}</a></li>
                 @endforeach
             </ol>
         </div>

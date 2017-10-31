@@ -117,13 +117,15 @@
                                     $categories.html('');
                                 }
                                 $('#addCategoryModal').modal('hide');
+
                                 $categories.append('<div class="checkbox col-xs-12">' +
                                     '<label><input type="checkbox" name="categories['+ response.data.id +'][category]" value="'+ response.data.id +'"> '+ response.data.category +'</label></div>');
                             })
                             .catch(function (error) {
-                                console.log('There was an error');
+                                console.log(error);
                             });
                     }
+                    this.resetData();
                 },
                 checkErrors: function () {
                     this.resetErrors();

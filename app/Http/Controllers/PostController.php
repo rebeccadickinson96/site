@@ -82,7 +82,7 @@ class PostController extends Controller
 
     public function addCategory(Request $request){
         $this->validate($request, [
-            'category' => 'required',
+            'category' => 'required|unique:categories,category',
         ]);
 
         $category = Category::create([

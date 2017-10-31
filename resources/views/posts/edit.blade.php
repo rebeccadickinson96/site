@@ -124,6 +124,7 @@
                                 console.log('There was an error');
                             });
                     }
+                    this.resetData();
                 },
                 checkErrors: function () {
                     this.resetErrors();
