@@ -42,7 +42,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        <a href="#" data-toggle="modal" data-target="#addCategoryModal" class="btn-add btn btn-primary">
+                        <a href="#" data-toggle="modal" data-target="#addCategoryModal" @click="resetErrors" class="btn-add btn btn-primary">
                             Add category
                         </a>
                     </div>
@@ -72,12 +72,12 @@
                                 <input v-model="category" type="text" name="category" class="form-control">
                             </div>
                         </form>
-                        <div v-show="hasErrors" class="alert alert-danger">
-                            <li v-for="error in errors">@{{ error }}</li>
+                        <div id="categoryErrors" class="alert">
+
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" @click="resetData">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" @click="resetData(), clearErrors()">
                             Cancel
                         </button>
                         <button type="button" class="btn btn-primary" @click="addCategory">
@@ -105,6 +105,8 @@
                 },
 
                 addCategory: function () {
+                    this.clearErrors();
+                    console.log('here');
                     this.checkErrors();
 
                     if (!this.hasErrors) {
@@ -120,10 +122,14 @@
 
                                 $categories.append('<div class="checkbox col-xs-12">' +
                                     '<label><input type="checkbox" name="categories['+ response.data.id +'][category]" value="'+ response.data.id +'"> '+ response.data.category +'</label></div>');
+                                $('#categoryErrors').removeClass('alert-danger').html('');
                             })
                             .catch(function (error) {
                                 console.log(error);
                             });
+                    }else{
+                        $('#categoryErrors').addClass('alert-danger').append('<p>' + this.errors +'</p>');
+
                     }
                     this.resetData();
                 },
@@ -139,6 +145,10 @@
                     this.hasErrors = false;
                     this.errors = [];
                 },
+
+                clearErrors: function(){
+                    $('#categoryErrors').removeClass('alert-danger').html('');
+                }
             }
         })
     </script>
