@@ -105,39 +105,30 @@
                 },
 
                 addCategory: function () {
-                    this.checkErrors();
-
-                    if (!this.hasErrors) {
-                        axios.post('/posts/create/categories',{
-                            category: this.category
+                    let module = this;
+                    axios.post('/posts/create/categories',{
+                        category: this.category
+                    })
+                        .then(function (response) {
+                            var $categories = $('#categoriesEdit');
+                            if(!$categories.has('.checkbox').length){
+                                $categories.html('');
+                            }
+                            $('#editCategoryModal').modal('hide');
+                            $categories.append('<div class="checkbox col-xs-12">' +
+                                '<label><input type="checkbox" name="categories['+ response.data.id +'][category]" value="'+ response.data.id +'"> '+ response.data.category +'</label></div>');
                         })
-                            .then(function (response) {
-                                var $categories = $('#categoriesEdit');
-                                if(!$categories.has('.checkbox').length){
-                                    $categories.html('');
-                                }
-                                $('#editCategoryModal').modal('hide');
-                                $categories.append('<div class="checkbox col-xs-12">' +
-                                    '<label><input type="checkbox" name="categories['+ response.data.id +'][category]" value="'+ response.data.id +'"> '+ response.data.category +'</label></div>');
-                            })
-                            .catch(function (error) {
-                                console.log('There was an error');
-                            });
-                    }
-                    this.resetData();
-                },
-                checkErrors: function () {
-                    this.resetErrors();
+                        .catch(function (error) {
+                            module.hasErrors = true;
+                            module.errors.push('' + error.response.data.category + '');
+                        });
 
-                    if (this.category == '') {
-                        this.hasErrors = true;
-                        this.errors.push('Category field is required');
-                    }
+                    this.resetData();
                 },
                 resetErrors: function () {
                     this.hasErrors = false;
                     this.errors = [];
-                },
+                }
             }
         })
     </script>
