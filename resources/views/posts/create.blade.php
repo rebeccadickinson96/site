@@ -72,12 +72,12 @@
                                 <input v-model="category" type="text" name="category" class="form-control">
                             </div>
                         </form>
-                        <div id="categoryErrors" class="alert">
-
+                        <div v-show="hasErrors" class="alert alert-danger">
+                            <li v-for="error in errors">@{{ error }}</li>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" @click="resetData(), clearErrors()">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" @click="resetData()">
                             Cancel
                         </button>
                         <button type="button" class="btn btn-primary" @click="addCategory">
@@ -105,11 +105,7 @@
                 },
 
                 addCategory: function () {
-                    this.clearErrors();
-                    console.log('here');
-                    this.checkErrors();
-
-                    if (!this.hasErrors) {
+                        let module = this;
                         axios.post('/posts/create/categories',{
                             category: this.category
                         })
@@ -122,32 +118,17 @@
 
                                 $categories.append('<div class="checkbox col-xs-12">' +
                                     '<label><input type="checkbox" name="categories['+ response.data.id +'][category]" value="'+ response.data.id +'"> '+ response.data.category +'</label></div>');
-                                $('#categoryErrors').removeClass('alert-danger').html('');
                             })
-                            .catch(function (error) {
-                                console.log(error);
+                            .catch(function(error){
+                                module.hasErrors = true;
+                                module.errors.push('' + error.response.data.category + '');
                             });
-                    }else{
-                        $('#categoryErrors').addClass('alert-danger').append('<p>' + this.errors +'</p>');
-
-                    }
                     this.resetData();
                 },
-                checkErrors: function () {
-                    this.resetErrors();
 
-                    if (this.category == '') {
-                        this.hasErrors = true;
-                        this.errors.push('Category field is required');
-                    }
-                },
                 resetErrors: function () {
                     this.hasErrors = false;
                     this.errors = [];
-                },
-
-                clearErrors: function(){
-                    $('#categoryErrors').removeClass('alert-danger').html('');
                 }
             }
         })
