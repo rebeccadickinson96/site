@@ -17,6 +17,7 @@
                 @foreach($categories as $cat)
                     <li><a href="/tag/{{ $cat->category }}">{{$cat->category .' ('.$cat->posts()->count().')'}}</a></li>
                 @endforeach
+                    <li><a href="/tag/uncategorized"> No tags ({{ $uncategorized }})</a></li>
             </ol>
         </div>
     </div>
