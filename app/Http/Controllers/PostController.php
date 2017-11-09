@@ -21,6 +21,11 @@ class PostController extends Controller
         return view('posts.index', compact('posts', 'name', 'surname'));
     }
 
+    public function uncategorized(){
+        $posts = Post::with('User')->uncategorized()->paginate($this->pagination);
+        return view('posts', compact('posts'));
+    }
+
     public function show(Post $post)
     {
         $categories = Category::latest()->get();

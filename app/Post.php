@@ -70,11 +70,19 @@ class Post extends Model
         return $query;
     }
 
+    public function scopeUncategorized($query) {
+        return $query->whereDoesntHave('categories')->orderBy('date_published', 'desc');
+    }
+
     public static function archives(){
         return static::selectRaw('year(date_published) year, monthname(date_published) month, count(*) published')
             ->groupBy('year', 'month')
             ->orderByRaw('min(date_published) desc')
             ->get();
+    }
+
+    public static function noCategories(){
+        return static::whereDoesntHave('categories')->get()->count();
     }
 
 }
