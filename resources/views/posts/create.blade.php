@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="form-group">
-                        <p>Post Categories</p>
+                        <label>Post Tags</label>
                         <div class="categories" id="categories">
                             @foreach($categories as $category)
                                 <div class="checkbox col-xs-12">
@@ -43,7 +43,7 @@
                             @endforeach
                         </div>
                         <a href="#" data-toggle="modal" data-target="#addCategoryModal" @click="resetErrors" class="btn-add btn btn-primary">
-                            Add category
+                            Add tag
                         </a>
                     </div>
 
@@ -62,13 +62,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="resetData"
                         ><span
                                     aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Add Category</h4>
+                        <h4 class="modal-title">Add Tag</h4>
                     </div>
                     <div class="modal-body">
                         <form id="addCategoryForm" action="/posts/create/categories" method="post">
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <label>Category<span class="text-danger">*</span></label>
+                                <label>Tag<span class="text-danger">*</span></label>
                                 <input v-model="category" type="text" name="category" class="form-control">
                             </div>
                         </form>

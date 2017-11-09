@@ -12,7 +12,7 @@
         </div>
 
         <div class="sidebar-module">
-            <h2>Categories</h2>
+            <h2>Tags</h2>
             <ol class="list-unstyled">
                 @foreach($categories as $cat)
                     <li><a href="/tag/{{ $cat->category }}">{{$cat->category .' ('.$cat->posts()->count().')'}}</a></li>
