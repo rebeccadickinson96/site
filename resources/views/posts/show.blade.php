@@ -4,7 +4,14 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-8 blog-main">
-                    <div class="blog-post-meta">Posted {{ $post->date_published->format('d/m/Y H:i')}} by <a>{{ $post->user->name }}</a></div>
+                    <div class="blog-post-meta">Posted {{ $post->date_published->format('d/m/Y H:i')}} by
+                        <a>{{ $post->user->name }}</a>.
+                        @if($post->categories->count() >= 1) Tags:
+                        @foreach($post->categories->pluck('category') as $cat)
+                            <a href="/tag/{{ $cat }}">{{ $cat }}</a>
+                        @endforeach
+                        @endif
+                    </div>
                     <div class="panel panel-default panel-rbec">
                         <div class="panel-body">
                             {{ $post->body }}

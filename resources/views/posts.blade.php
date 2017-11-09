@@ -10,13 +10,15 @@
                             <h2><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></h2>
                         </div>
                         <div class="blog-post-meta">{{ $post->date_published->diffForHumans()}} by
-                            <a>{{ $post->user->name }}</a></div>
+                            <a>{{ $post->user->name }}</a>
+                            @if($post->categories->count() >= 1) Tags:
+                                @foreach($post->categories->pluck('category') as $cat)
+                                <a href="/tag/{{ $cat }}">{{ $cat }}</a>
+                                @endforeach
+                            @endif
+                        </div>
                         {{ $post->body }}
                         <div class="blog-post-meta">Comments:({{ $post->comments->count()}})</div>
-                        @foreach($post->categories->pluck('category') as $cat)
-                            {{ $cat }}
-                        @endforeach
-
                     </div>
                 @endforeach
                 {{ $posts->render() }}
