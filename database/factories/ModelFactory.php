@@ -49,3 +49,14 @@ $factory->define(App\Comment::class, function (Faker\Generator $faker) {
         'commenter_name' => 'Rebecca Dickinson'
     ];
 });
+
+$factory->define(App\CategoryPost::class, function (Faker\Generator $faker) {
+    return [
+        'post_id' => function () {
+            return factory(App\Post::class)->create()->id;
+        },
+        'category_id' => function () {
+            return factory(App\Category::class)->create()->id;
+        }
+    ];
+});
