@@ -15,7 +15,8 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->composer('partials.sidebar', function($view){
             $view->with(['archives' => \App\Post::archives(),
-                        'categories' => \App\Category::allCategories()
+                        'categories' => \App\Category::allCategories(),
+                        'uncategorized' => \App\Post::noCategories()
             ]);
         });
     }

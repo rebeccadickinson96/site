@@ -21,6 +21,11 @@ class PostController extends Controller
         return view('posts.index', compact('posts', 'name', 'surname'));
     }
 
+    public function uncategorized(){
+        $posts = Post::with('User')->uncategorized()->paginate($this->pagination);
+        return view('posts', compact('posts'));
+    }
+
     public function show(Post $post)
     {
         $categories = Category::latest()->get();
@@ -31,8 +36,8 @@ class PostController extends Controller
 
     public function create()
     {
-
-        return view('posts.create');
+        $categories = Category::latest()->get();
+        return view('posts.create', compact('categories'));
 
     }
 
@@ -51,13 +56,14 @@ class PostController extends Controller
             'date_published' => Carbon::createFromFormat('d/m/Y H:i', $request->input('date_published'))
 
         ]);
-
+         $post->addCategories($request->input('categories'));
         return redirect('/posts')->with(['success' => 'Successfully created ' . $post->title]);
     }
 
     public function edit(Post $post)
     {
-        return view('posts.edit', compact('post'));
+        $categories= Category::latest()->get();
+        return view('posts.edit', compact('post', 'categories'));
     }
 
     public function update(Request $request, Post $post)
@@ -75,8 +81,21 @@ class PostController extends Controller
             'date_published' => Carbon::createFromFormat('d/m/Y H:i', $request->input('date_published'))
 
         ]);
-
+        $post->addCategories($request->input('categories'));
         return redirect('/posts/' . $post->id);
+    }
+
+    public function addCategory(Request $request){
+        $this->validate($request, [
+            'category' => 'required|unique:categories,category',
+        ]);
+
+        $category = Category::create([
+            'category' => $request->input('category'),
+        ]);
+
+
+        return json_encode(['id' => $category->id, 'category' => $category->category]);
     }
 
     public function destroy(Post $post)

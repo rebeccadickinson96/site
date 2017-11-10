@@ -22,7 +22,15 @@ class Post extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany('App\Category', 'category_posts');
+    }
 
+    public function categoryPost()
+    {
+        return $this->hasMany('App\CategoryPost');
+    }
 
     public function addComment($body)
     {
@@ -30,6 +38,24 @@ class Post extends Model
         $this->comments()->create(compact('body'));
 
         return back();
+    }
+
+    public function addCategories($categories){
+        $this->categoryPost()->where('post_id', $this->id)->delete();
+        if(!$categories){
+            return false;
+        }
+
+        foreach($categories as $category){
+            if(!$category || !$category['category']){
+                continue;
+            }
+            CategoryPost::create([
+                'post_id' => $this->id,
+                'category_id' => $category['category']
+            ]);
+        }
+        return true;
     }
 
     public function scopeFilter($query)
@@ -44,12 +70,19 @@ class Post extends Model
         return $query;
     }
 
+    public function scopeUncategorized($query) {
+        return $query->whereDoesntHave('categories')->orderBy('date_published', 'desc');
+    }
+
     public static function archives(){
         return static::selectRaw('year(date_published) year, monthname(date_published) month, count(*) published')
             ->groupBy('year', 'month')
             ->orderByRaw('min(date_published) desc')
-            ->get()
-            ->toArray();
+            ->get();
+    }
+
+    public static function noCategories(){
+        return static::whereDoesntHave('categories')->get()->count();
     }
 
 }

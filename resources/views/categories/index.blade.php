@@ -1,33 +1,32 @@
-@extends('layouts.app', ['title' => 'Categories Index'])
+@extends('layouts.app', ['title' => 'Tags Index'])
 @section('content')
     <div id="categories" class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default panel-rbec">
-                    <div class="panel-heading"><h2>Categories<a href="#" class="btn-add btn btn-primary pull-right"
+                    <div class="panel-heading"><h2>Tag<a href="#" class="btn-add btn btn-primary pull-right"
                                                                 data-toggle="modal"
-                                                                data-target="#addCategoryModal">Add Category +</a></h2>
+                                                                data-target="#addCategoryModal">Add Tag +</a></h2>
                     </div>
                     @include('partials.success-message')
+                    @include('partials.errors')
                     <div class="panel-body">
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <tr>
                                     <th>Title</th>
-                                    <th>Description</th>
                                     <th>Created</th>
                                     <th>Action</th>
                                 </tr>
                                 @foreach($categories as $category)
                                     <tr>
                                         <td>{{ $category->category}}</td>
-                                        <td>{{ $category->description }}</td>
                                         <td>{{ $category->created_at->diffForHumans() }}</td>
                                         <td><a href="#" class="btn btn-default pull-left"
                                                data-toggle="modal" data-target="#editCategoryModal" style="margin-right:5px"
                                                @click="setActiveCategory({{ $category->id }}, '{{ $category->category }}', '{{ $category->description }}')"><i
                                                         class="fa fa-edit"></i></a>
-                                            <form action="/categories/{{ $category->id }}" method="post">
+                                            <form action="/categories/{{ $category->category }}" method="post">
                                                 {{ csrf_field() }}
                                                 {{ method_field('delete') }}
                                                 <button class="btn btn-danger"><i class="fa fa-trash"></i>
@@ -54,24 +53,25 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="resetData"
                         ><span
                                     aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Add Category</h4>
+                        <h4 class="modal-title">Add Tag</h4>
                     </div>
                     <div class="modal-body">
                         <form id="addCategoryForm" action="/categories" method="post">
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <label>Category<span class="text-danger">*</span></label>
+                                <label>Tag<span class="text-danger">*</span></label>
                                 <input v-model="category" type="text" name="category" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Description (Optional)</label>
                                 <input v-model="description" type="text" name="description" class="form-control">
-
                             </div>
                         </form>
                         <div v-show="hasErrors" class="alert alert-danger">
                             <li v-for="error in errors">@{{ error }}</li>
+
                         </div>
+                        @include('partials.errors')
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" @click="resetData">
@@ -92,13 +92,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                         ><span
                                     aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Edit Category</h4>
+                        <h4 class="modal-title">Edit Tag</h4>
                     </div>
                     <div class="modal-body">
-                        <form id="editCategoryForm" :action="'/categories/'+activeCategory.id" method="post">
+                        <form id="editCategoryForm" :action="'/categories/'+activeCategory.category" method="post">
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <label>Category<span class="text-danger">*</span></label>
+                                <label>Tag<span class="text-danger">*</span></label>
                                 <input v-model="activeCategory.category" type="text" name="category"
                                        class="form-control">
                             </div>

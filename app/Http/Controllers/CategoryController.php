@@ -17,7 +17,7 @@ class CategoryController extends Controller
 
     public function store(Request $request){
         $this->validate($request, [
-            'category' => 'required',
+            'category' => 'required|unique:categories,category',
             'description' => 'sometimes'
         ]);
 
@@ -32,8 +32,8 @@ class CategoryController extends Controller
 
     public function update(Category $category, Request $request)
     {
-        $this->validate($request, [
-            'category' => 'required',
+        $v = $this->validate($request, [
+            'category' => 'required|unique:categories,category',
             'description' => 'sometimes'
         ]);
 
@@ -50,5 +50,12 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()->back()->with(['success' => 'Successfully deleted category.']);
+    }
+
+    public function filterTag(Category $category){
+
+        $posts = $category->posts()->with('User')->orderBy('date_published', 'desc')->paginate($this->pagination);
+
+        return view('posts', compact('posts'));
     }
 }

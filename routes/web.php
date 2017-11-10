@@ -25,15 +25,17 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('posts/{post}/edit', 'PostController@edit');
     Route::post('posts/{post}', 'PostController@update');
     Route::delete('posts/{post}', 'PostController@destroy');
+    Route::post('posts/create/categories', 'PostController@addCategory');
 
 
 //categories
     Route::get('/categories', 'CategoryController@index');
-//    Route::get('/posts/category/{category}', 'CategoryController@index');
     Route::post('/categories', 'CategoryController@store');
     Route::post('categories/{category}', 'CategoryController@update');
     Route::delete('categories/{category}', 'CategoryController@destroy');
 });
+Route::get('/tag/uncategorized', 'PostController@uncategorized');
+Route::get('/tag/{category}', 'CategoryController@filterTag');
 
 Route::get('/posts/{post}', 'PostController@show');
 Route::post('posts/{post}/comments', 'CommentController@store');

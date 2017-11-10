@@ -29,7 +29,7 @@
                     <li><a class="nav-link" href="/register">Register</a></li>
                 @else
                     <li><a class="nav-link" href="/posts">Posts</a></li>
-                    <li><a class="nav-link" href="/categories">Categories</a></li>
+                    <li><a class="nav-link" href="/categories">Tags</a></li>
                     <li class="dropdown" id="userdropdownmenu">
                         <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" id="usernamelogout">
                             <i class="fa fa-user fa-fw"></i> {{ Auth::user()->name }} <i class="fa fa-caret-down"></i>
