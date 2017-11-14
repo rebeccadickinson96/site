@@ -20,12 +20,12 @@
                                 </tr>
                                 @foreach($posts as $post)
                                     <tr>
-                                        <td><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></td>
+                                        <td>{{ $post->title }}</td>
                                         <td width="50%">{{ strlen($post->body)>75 ? substr($post->body,0,75)."..." : $post->body}}</td>
                                         <td>{{ $post->date_published->diffForHumans() }}</td>
                                         <td>
                                             <a class="btn btn-default pull-left" style="margin-right: 5px;"
-                                               href="/posts/{{ $post->id }}/edit"><i
+                                               href="/posts/{{ $post->id }}/edit" id="edit{{$post->id}}"><i
                                                         class="fa fa-edit"></i></a>
                                             <form action="/posts/{{$post->id}}" method="post">
                                                 {{ csrf_field() }}

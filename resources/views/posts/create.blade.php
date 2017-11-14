@@ -43,7 +43,7 @@
                             @endforeach
                         </div>
                         <a href="#" data-toggle="modal" data-target="#addCategoryModal" @click="resetErrors" class="btn-add btn btn-primary">
-                            Add tag
+                            Add Tag
                         </a>
                     </div>
 
@@ -80,8 +80,8 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal" @click="resetData()">
                             Cancel
                         </button>
-                        <button type="button" class="btn btn-primary" @click="addCategory">
-                            Submit
+                        <button type="button" id="tagSubmit" class="btn btn-primary" @click="addCategory">
+                            Submit Tag
                         </button>
                     </div>
                 </div>

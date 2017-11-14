@@ -1,7 +1,6 @@
 @extends('layouts.app', ['title' => config('app.name', 'Laravel')])
 @section('content')
     <div class="container">
-        HOME
         <div class="row">
             <div class="col-md-8 blog-main">
                 @foreach($posts as $post)
