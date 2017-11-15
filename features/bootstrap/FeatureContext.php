@@ -14,6 +14,7 @@ use Laracasts\Behat\Context\DatabaseTransactions;
 use Behat\Mink\Driver\Selenium2Driver;
 use PHPUnit_Framework_Assert as PHPUnit;
 use Tests\TestCase;
+
 /**
  * Defines application features from the specific context.
  */
@@ -39,12 +40,12 @@ class FeatureContext extends MinkContext implements Context
     public function iAmLoggedInAsEmailAndPassword($email, $password)
     {
         return array(
-        Behat\MinkExtension\Context\MinkContext::visit('/login'),
-        Behat\MinkExtension\Context\MinkContext::fillField('email', $email),
-        Behat\MinkExtension\Context\MinkContext::fillField("password", $password),
-        Behat\MinkExtension\Context\MinkContext::pressButton("Login"),
-        Behat\MinkExtension\Context\MinkContext::assertPageContainsText("logout")
-    );
+            Behat\MinkExtension\Context\MinkContext::visit('/login'),
+            Behat\MinkExtension\Context\MinkContext::fillField('email', $email),
+            Behat\MinkExtension\Context\MinkContext::fillField("password", $password),
+            Behat\MinkExtension\Context\MinkContext::pressButton("Login"),
+            Behat\MinkExtension\Context\MinkContext::assertPageContainsText("logout")
+        );
     }
 
 
@@ -106,7 +107,6 @@ class FeatureContext extends MinkContext implements Context
     public function postAddsToDatabaseWithTitleBodyAndUserId($title, $body, $userId)
     {
         $date = Carbon::now()->subMinutes(1)->format('Y-m-d H:i:s');
-//        dd($date);
         factory(Post::class)->create([
             'id' => 9867461,
             'title' => $title,
@@ -119,5 +119,35 @@ class FeatureContext extends MinkContext implements Context
             'post_id' => 9867461,
             'category_id' => 9992425
         ]);
+    }
+
+    /**
+     * @Given I add category :category to the database with an id of :id
+     */
+    public function iAddCategoryToTheDatabaseWithAnIdOf($category, $id)
+    {
+        factory(Category::class)->create([
+            'id' => $id,
+            'category' => $category
+        ]);
+    }
+
+    /**
+     * @Then I update the post with title :title body :body
+     */
+    public function iUpdateThePostWithTitleBody($title, $body)
+    {
+        $post = Post::find(9867461);
+        $post->update([
+            'id' => 9867461,
+            'title' => $title,
+            'body' => $body,
+        ]);
+        $categories = [
+            9992426 => [
+                'category' => 9992426
+            ]
+        ];
+        $post->addCategories($categories);
     }
 }

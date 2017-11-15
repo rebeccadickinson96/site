@@ -20,7 +20,7 @@
                                 </tr>
                                 @foreach($posts as $post)
                                     <tr>
-                                        <td>{{ $post->title }}</td>
+                                        <td><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></td>
                                         <td width="50%">{{ strlen($post->body)>75 ? substr($post->body,0,75)."..." : $post->body}}</td>
                                         <td>{{ $post->date_published->diffForHumans() }}</td>
                                         <td>
@@ -37,7 +37,6 @@
                                 @endforeach
                             </table>
                         </div>
-
                     </div>
                     <div class="panel-footer">
                         {{ $posts->render() }}
