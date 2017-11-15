@@ -2,6 +2,7 @@
 
 use App\Category;
 use App\CategoryPost;
+use App\Comment;
 use App\Post;
 use Behat\Behat\Hook\Scope\AfterStepScope;
 use Behat\Behat\Tester\Exception\PendingException;
@@ -149,5 +150,31 @@ class FeatureContext extends MinkContext implements Context
             ]
         ];
         $post->addCategories($categories);
+    }
+
+    /**
+     * @When I add the comment :comment by :name
+     */
+    public function iAddTheCommentBy($comment, $name)
+    {
+        factory(Comment::class)->create([
+            'post_id' => "9867461",
+            'body' => $comment,
+            'user_id' => null,
+            "commenter_name" => $name
+        ]);
+    }
+
+    /**
+     * @When I add the comment :comment by Rebecca Dickinson
+     */
+    public function iAddTheCommentByRebeccaDickinson($comment)
+    {
+        factory(Comment::class)->create([
+            'post_id' => "9867461",
+            'body' => $comment,
+            'user_id' => 1,
+            "commenter_name" => 'Rebecca Dickinson'
+        ]);
     }
 }
