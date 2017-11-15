@@ -76,4 +76,26 @@ class FeatureContext extends MinkContext implements Context
             'category_id' => 9992425
         ]);
     }
+
+    /**
+     * @Given I am logged in as Rebecca Dickinson
+     */
+    public function iAmLoggedInAsRebeccaDickinson()
+    {
+        return array(
+            Behat\MinkExtension\Context\MinkContext::visit('/login'),
+            Behat\MinkExtension\Context\MinkContext::fillField('email', 'bexy-d@hotmail.com'),
+            Behat\MinkExtension\Context\MinkContext::fillField("password", "rebecca1996"),
+            Behat\MinkExtension\Context\MinkContext::pressButton("Login"),
+            Behat\MinkExtension\Context\MinkContext::assertPageContainsText("logout")
+        );
+    }
+
+    /**
+     * @Given I am not logged in
+     */
+    public function iAmNotLoggedIn()
+    {
+        return Auth::guest();
+    }
 }
