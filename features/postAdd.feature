@@ -43,7 +43,7 @@ Feature: Handling Posts
     Given I add category "baking123" to the database
     And I am on "/posts/create"
     When I press "Submit"
-    Then post adds to database with title "Lorem Ipsum" body "I am the post body" date "2017-11-14 10:30:00" and  user id "1"
+    Then post adds to database with title "Lorem Ipsum" body "I am the post body" and  user id "1"
     And I am on "/posts"
     And I should see "Posts List"
     And I should see "Lorem Ipsum"
@@ -51,7 +51,7 @@ Feature: Handling Posts
 
   Scenario: The Post should show on the homepage
     Given I add category "baking123" to the database
-    And post adds to database with title "Lorem Ipsum" body "I am the post body" date "2017-11-14 10:30:00" and  user id "1"
+    And post adds to database with title "Lorem Ipsum" body "I am the post body" and  user id "1"
     And I am on "/posts"
     When I follow "Posts Experiment"
     Then I am on the homepage
@@ -61,10 +61,10 @@ Feature: Handling Posts
 
   Scenario: I can access the posts page
     Given I add category "baking123" to the database
-    And post adds to database with title "Lorem Ipsum" body "I am the post body" date "2017-11-14 10:30:00" and  user id "1"
+    And post adds to database with title "Lorem Ipsum" body "I am the post body" and  user id "1"
     And I am on the homepage
     When I follow "Lorem Ipsum"
-    Then I am on "/posts/9867462"
+    Then I am on "/posts/9867461"
     And I should see "Lorem Ipsum"
     And I should see "I am the post body"
     And I should see "baking123"

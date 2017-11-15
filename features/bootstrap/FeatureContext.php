@@ -9,6 +9,7 @@ use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
+use Carbon\Carbon;
 use Laracasts\Behat\Context\DatabaseTransactions;
 use Behat\Mink\Driver\Selenium2Driver;
 use PHPUnit_Framework_Assert as PHPUnit;
@@ -97,5 +98,26 @@ class FeatureContext extends MinkContext implements Context
     public function iAmNotLoggedIn()
     {
         return Auth::guest();
+    }
+
+    /**
+     * @Then post adds to database with title :title body :body and  user id :userId
+     */
+    public function postAddsToDatabaseWithTitleBodyAndUserId($title, $body, $userId)
+    {
+        $date = Carbon::now()->subMinutes(1)->format('Y-m-d H:i:s');
+//        dd($date);
+        factory(Post::class)->create([
+            'id' => 9867461,
+            'title' => $title,
+            'body' => $body,
+            'date_published' => $date,
+            'user_id' => $userId
+        ]);
+
+        factory(CategoryPost::class)->create([
+            'post_id' => 9867461,
+            'category_id' => 9992425
+        ]);
     }
 }
