@@ -25,7 +25,7 @@
                                         <td>{{ $post->date_published->diffForHumans() }}</td>
                                         <td>
                                             <a class="btn btn-default pull-left" style="margin-right: 5px;"
-                                               href="/posts/{{ $post->id }}/edit"><i
+                                               href="/posts/{{ $post->id }}/edit" id="edit{{$post->id}}"><i
                                                         class="fa fa-edit"></i></a>
                                             <form action="/posts/{{$post->id}}" method="post">
                                                 {{ csrf_field() }}
@@ -37,7 +37,6 @@
                                 @endforeach
                             </table>
                         </div>
-
                     </div>
                     <div class="panel-footer">
                         {{ $posts->render() }}

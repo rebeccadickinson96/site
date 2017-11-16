@@ -8,7 +8,7 @@
                         <a>{{ $post->user->name }}</a>.
                         @if($post->categories->count() >= 1) Tags:
                         @foreach($post->categories->pluck('category') as $cat)
-                            <a href="/tag/{{ $cat }}">{{ $cat }}</a>
+                            <a href="/tags/{{ $cat }}">{{ $cat }}</a>
                         @endforeach
                         @endif
                     </div>
