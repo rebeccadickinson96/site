@@ -28,7 +28,8 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
         'title' => $faker->word,
         'body' => $faker->paragraph,
         'user_id' => 1,
-        'date_published' => Carbon::now()
+        'date_published' => Carbon::now(),
+        'published' => 1
     ];
 });
 
