@@ -9,7 +9,7 @@ use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
-use Behat\MinkExtension\Context\MinkContext;
+use Behat\MinkExtension\Context\MinkContext as Mink;
 use Carbon\Carbon;
 use Laracasts\Behat\Context\DatabaseTransactions;
 use Behat\Mink\Driver\Selenium2Driver;
@@ -19,7 +19,7 @@ use Tests\TestCase;
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext extends MinkContext implements Context
+class FeatureContext extends Mink implements Context
 {
     use DatabaseTransactions;
 
@@ -41,11 +41,11 @@ class FeatureContext extends MinkContext implements Context
     public function iAmLoggedInAsEmailAndPassword($email, $password)
     {
         return array(
-            Behat\MinkExtension\Context\MinkContext::visit('/login'),
-            Behat\MinkExtension\Context\MinkContext::fillField('email', $email),
-            Behat\MinkExtension\Context\MinkContext::fillField("password", $password),
-            Behat\MinkExtension\Context\MinkContext::pressButton("Login"),
-            Behat\MinkExtension\Context\MinkContext::assertPageContainsText("logout")
+            Mink::visit('/login'),
+            Mink::fillField('email', $email),
+            Mink::fillField("password", $password),
+            Mink::pressButton("Login"),
+            Mink::assertPageContainsText("logout")
         );
     }
 
@@ -86,11 +86,11 @@ class FeatureContext extends MinkContext implements Context
     public function iAmLoggedInAsRebeccaDickinson()
     {
         return array(
-            Behat\MinkExtension\Context\MinkContext::visit('/login'),
-            Behat\MinkExtension\Context\MinkContext::fillField('email', 'bexy-d@hotmail.com'),
-            Behat\MinkExtension\Context\MinkContext::fillField("password", "rebecca1996"),
-            Behat\MinkExtension\Context\MinkContext::pressButton("Login"),
-            Behat\MinkExtension\Context\MinkContext::assertPageContainsText("logout")
+            Mink::visit('/login'),
+            Mink::fillField('email', 'bexy-d@hotmail.com'),
+            Mink::fillField("password", "rebecca1996"),
+            Mink::pressButton("Login"),
+            Mink::assertPageContainsText("logout")
         );
     }
 
@@ -175,6 +175,18 @@ class FeatureContext extends MinkContext implements Context
             'body' => $comment,
             'user_id' => 1,
             "commenter_name" => 'Rebecca Dickinson'
+        ]);
+    }
+
+    /**
+     * @When I add category :arg1 and description :arg2 to the database
+     */
+    public function iAddCategoryAndDescriptionToTheDatabase($category, $description)
+    {
+        factory(Category::class)->create([
+            'id' => 9992425,
+            'category' => $category,
+            'description' => $description
         ]);
     }
 }
