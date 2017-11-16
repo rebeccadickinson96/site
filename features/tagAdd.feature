@@ -23,8 +23,8 @@ Feature: Adding a tag
     When I follow "Add Tag +"
     And I fill in the following:
       | category    | Entertainment   |
-      | description | I am a category |
-    #test for the
+      | description | I am Entertainment |
+    #test for the submit button
     And I add category "Entertainment" and description "I am Entertainment" to the database
     Then I am on "/categories"
     And I should see "Entertainment"

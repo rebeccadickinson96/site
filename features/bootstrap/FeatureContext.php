@@ -179,12 +179,25 @@ class FeatureContext extends Mink implements Context
     }
 
     /**
-     * @When I add category :arg1 and description :arg2 to the database
+     * @When I add category :category and description :description to the database
      */
     public function iAddCategoryAndDescriptionToTheDatabase($category, $description)
     {
         factory(Category::class)->create([
             'id' => 9992425,
+            'category' => $category,
+            'description' => $description
+        ]);
+    }
+
+    /**
+     * @When I update the category to category :category and description :description
+     */
+    public function iUpdateTheCategoryToCategoryAndDescription($category, $description)
+    {
+        $cat = Category::find(9992425);
+        $cat->update([
+            'id' => 9867461,
             'category' => $category,
             'description' => $description
         ]);

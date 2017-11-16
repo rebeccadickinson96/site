@@ -22,7 +22,7 @@
                                     <tr>
                                         <td>{{ $category->category}}</td>
                                         <td>{{ $category->created_at->diffForHumans() }}</td>
-                                        <td><a href="#" class="btn btn-default pull-left"
+                                        <td><a href="#" id="tag{{ $category->id }}" class="btn btn-default pull-left"
                                                data-toggle="modal" data-target="#editCategoryModal" style="margin-right:5px"
                                                @click="setActiveCategory({{ $category->id }}, '{{ $category->category }}', '{{ $category->description }}')"><i
                                                         class="fa fa-edit"></i></a>
