@@ -46,14 +46,16 @@ class PostController extends Controller
         $this->validate($request, [
             'title' => 'required|max:100',
             'body' => 'required',
-            'date_published' => 'required'
+            'date_published' => 'required',
+            'published' => 'required'
         ]);
 
         $post = Post::create([
             'title' => $request->input('title'),
             'body' => $request->input('body'),
             'user_id' => Auth::id(),
-            'date_published' => Carbon::createFromFormat('d/m/Y H:i', $request->input('date_published'))
+            'date_published' => Carbon::createFromFormat('d/m/Y H:i', $request->input('date_published')),
+            'published' => $request->input('published')
 
         ]);
          $post->addCategories($request->input('categories'));
@@ -71,14 +73,16 @@ class PostController extends Controller
         $this->validate($request, [
             'title' => 'required|max:100',
             'body' => 'required',
-            'date_published' => 'required'
+            'date_published' => 'required',
+            'published' => 'required'
         ]);
 
         $post->update([
             'title' => $request->input('title'),
             'body' => $request->input('body'),
             'user_id' => Auth::id(),
-            'date_published' => Carbon::createFromFormat('d/m/Y H:i', $request->input('date_published'))
+            'date_published' => Carbon::createFromFormat('d/m/Y H:i', $request->input('date_published')),
+            'published' => $request->input('published')
 
         ]);
         $post->addCategories($request->input('categories'));
