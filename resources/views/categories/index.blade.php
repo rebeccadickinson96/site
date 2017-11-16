@@ -26,7 +26,7 @@
                                                data-toggle="modal" data-target="#editCategoryModal" style="margin-right:5px"
                                                @click="setActiveCategory({{ $category->id }}, '{{ $category->category }}', '{{ $category->description }}')"><i
                                                         class="fa fa-edit"></i></a>
-                                            <form action="/categories/{{ $category->category }}" method="post">
+                                            <form action="/categories/{{ $category->id }}" method="post">
                                                 {{ csrf_field() }}
                                                 {{ method_field('delete') }}
                                                 <button class="btn btn-danger"><i class="fa fa-trash"></i>
@@ -95,7 +95,7 @@
                         <h4 class="modal-title">Edit Tag</h4>
                     </div>
                     <div class="modal-body">
-                        <form id="editCategoryForm" :action="'/categories/'+activeCategory.category" method="post">
+                        <form id="editCategoryForm" :action="'/categories/'+activeCategory.id" method="post">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label>Tag<span class="text-danger">*</span></label>
