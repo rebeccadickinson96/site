@@ -40,14 +40,15 @@ class Post extends Model
         return back();
     }
 
-    public function addCategories($categories){
+    public function addCategories($categories)
+    {
         $this->categoryPost()->where('post_id', $this->id)->delete();
-        if(!$categories){
+        if (!$categories) {
             return false;
         }
 
-        foreach($categories as $category){
-            if(!$category || !$category['category']){
+        foreach ($categories as $category) {
+            if (!$category || !$category['category']) {
                 continue;
             }
             CategoryPost::create([
@@ -58,8 +59,19 @@ class Post extends Model
         return true;
     }
 
-    public function scopeIsPublished($query){
+    public function scopeIsPublished($query)
+    {
         return $query->where('date_published', '<', Carbon::now())->where('published', 1);
+    }
+
+    public function scopeIsScheduled($query)
+    {
+        return $query->where('date_published', '>', Carbon::now())->where('published', 1);
+    }
+
+    public function scopeIsDraft($query)
+    {
+        return $query->where('published', 0);
     }
 
     public function scopeFilter($query)
@@ -74,11 +86,13 @@ class Post extends Model
         return $query;
     }
 
-    public function scopeUncategorized($query) {
+    public function scopeUncategorized($query)
+    {
         return $query->whereDoesntHave('categories')->isPublished()->orderBy('date_published', 'desc');
     }
 
-    public static function archives(){
+    public static function archives()
+    {
         return static::selectRaw('year(date_published) year, monthname(date_published) month, count(*) published')
             ->isPublished()
             ->groupBy('year', 'month')
@@ -86,9 +100,9 @@ class Post extends Model
             ->get();
     }
 
-    public static function noCategories(){
+    public static function noCategories()
+    {
         return static::whereDoesntHave('categories')->isPublished()->get()->count();
     }
 
 }
-
