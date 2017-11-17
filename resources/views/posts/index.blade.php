@@ -14,19 +14,29 @@
                             <table class="table table-striped">
                                 <tr>
                                     <th>Title</th>
-                                    <th>Has Tags</th>
-                                    {{--<th>Body</th>--}}
-                                    <th>Created At</th>
+                                    <th>Tags</th>
+                                    <th>Publish Date</th>
                                     <th>Published</th>
                                     <th>Action</th>
                                 </tr>
                                 @foreach($posts as $post)
                                     <tr>
                                         <td><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></td>
-                                        <td><i class="fa {{ $post->categories()->count() ? 'fa-check text-success' : 'fa-times text-danger' }}"></i></td>
-{{--                                        <td width="50%">{{ strlen($post->body)>75 ? substr($post->body,0,75)."..." : $post->body}}</td>--}}
-                                        <td>{{ $post->date_published->diffForHumans() }}</td>
-                                        <td><i class="fa {{ $post->published ? 'fa-check text-success' : 'fa-times text-danger' }}"></i></td>
+                                        <td>
+                                            @if($post->categories->count() >= 1)
+
+                                                @foreach($post->categories->pluck('category') as $cat)
+                                                    {{ $cat }}<br>
+                                                @endforeach
+
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td>{{ $post->date_published->format('d/m/Y H:i') }}</td>
+                                        <td>
+                                            <i class="fa {{ $post->published ? 'fa-check text-success' : 'fa-times text-danger' }}"></i>
+                                        </td>
                                         <td>
                                             <a class="btn btn-default pull-left" style="margin-right: 5px;"
                                                href="/posts/{{ $post->id }}/edit" id="edit{{$post->id}}"><i
