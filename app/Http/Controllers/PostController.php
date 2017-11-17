@@ -86,7 +86,7 @@ class PostController extends Controller
 
         ]);
         $post->addCategories($request->input('categories'));
-        return redirect('/posts/' . $post->id);
+        return redirect('/posts/')->with(['success' => 'Successfully updated ' . $post->title]);
     }
 
     public function addCategory(Request $request){

@@ -14,15 +14,17 @@
                             <table class="table table-striped">
                                 <tr>
                                     <th>Title</th>
-                                    <th>Body</th>
+                                    {{--<th>Body</th>--}}
                                     <th>Created At</th>
+                                    <th>Published</th>
                                     <th>Action</th>
                                 </tr>
                                 @foreach($posts as $post)
                                     <tr>
                                         <td><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></td>
-                                        <td width="50%">{{ strlen($post->body)>75 ? substr($post->body,0,75)."..." : $post->body}}</td>
+{{--                                        <td width="50%">{{ strlen($post->body)>75 ? substr($post->body,0,75)."..." : $post->body}}</td>--}}
                                         <td>{{ $post->date_published->diffForHumans() }}</td>
+                                        <td><i class="fa {{ $post->published ? 'fa-check text-success' : 'fa-times text-danger' }}"></i></td>
                                         <td>
                                             <a class="btn btn-default pull-left" style="margin-right: 5px;"
                                                href="/posts/{{ $post->id }}/edit" id="edit{{$post->id}}"><i
