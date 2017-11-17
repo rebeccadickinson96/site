@@ -59,6 +59,22 @@ class Post extends Model
         return true;
     }
 
+    public function status()
+    {
+        if ($this->date_published < Carbon::now() && $this->published == 1) {
+            return "Published";
+        }
+
+        if ($this->date_published > Carbon::now() && $this->published == 1) {
+            return "Scheduled";
+        }
+
+        if ($this->published == 0) {
+            return "Draft";
+        }
+        return "Published";
+    }
+
     public function scopeIsPublished($query)
     {
         return $query->where('date_published', '<', Carbon::now())->where('published', 1);

@@ -16,7 +16,7 @@
                                     <th>Title</th>
                                     <th>Tags</th>
                                     <th>Publish Date</th>
-                                    <th>Published</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 @foreach($posts as $post)
@@ -35,7 +35,7 @@
                                         </td>
                                         <td>{{ $post->date_published->format('d/m/Y H:i') }}</td>
                                         <td>
-                                            <i class="fa {{ $post->published ? 'fa-check text-success' : 'fa-times text-danger' }}"></i>
+                                            {{ $post->status() }}
                                         </td>
                                         <td>
                                             <a class="btn btn-default pull-left" style="margin-right: 5px;"
