@@ -12,9 +12,14 @@ class Category extends Model
     {
         return $this->belongsToMany('App\Post', 'category_posts');
     }
+    public function publishedPosts(){
+        return $this->belongsToMany('App\Post', 'category_posts')->isPublished();
+    }
+
+    //categories with published posts
 
     public static function allCategories(){
-        return static::whereHas('posts')->latest()->get();
+        return static::whereHas('publishedPosts')->latest()->get();
     }
 
 }

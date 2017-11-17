@@ -58,31 +58,36 @@ class Post extends Model
         return true;
     }
 
+    public function scopeIsPublished($query){
+        return $query->where('date_published', '<', Carbon::now())->where('published', 1);
+    }
+
     public function scopeFilter($query)
     {
         if ($month = request('month')) {
-            $query->whereMonth('date_published', Carbon::parse($month)->month);
+            $query->whereMonth('date_published', Carbon::parse($month)->month)->isPublished();
         }
 
         if ($year = request('year')) {
-            $query->whereYear('date_published', $year);
+            $query->whereYear('date_published', $year)->isPublished();
         }
         return $query;
     }
 
     public function scopeUncategorized($query) {
-        return $query->whereDoesntHave('categories')->orderBy('date_published', 'desc');
+        return $query->whereDoesntHave('categories')->isPublished()->orderBy('date_published', 'desc');
     }
 
     public static function archives(){
         return static::selectRaw('year(date_published) year, monthname(date_published) month, count(*) published')
+            ->isPublished()
             ->groupBy('year', 'month')
             ->orderByRaw('min(date_published) desc')
             ->get();
     }
 
     public static function noCategories(){
-        return static::whereDoesntHave('categories')->get()->count();
+        return static::whereDoesntHave('categories')->isPublished()->get()->count();
     }
 
 }

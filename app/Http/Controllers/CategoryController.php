@@ -54,7 +54,7 @@ class CategoryController extends Controller
 
     public function filterTag(Category $tag){
 
-        $posts = $tag->posts()->with('User')->orderBy('date_published', 'desc')->paginate($this->pagination);
+        $posts = $tag->posts()->with('User')->isPublished()->orderBy('date_published', 'desc')->paginate($this->pagination);
 
         return view('posts', compact('posts'));
     }
