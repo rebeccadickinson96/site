@@ -21,7 +21,29 @@ class PostController extends Controller
         return view('posts.index', compact('posts', 'name', 'surname'));
     }
 
-    public function uncategorized(){
+    public function published()
+    {
+        $posts = Post::with('User')->isPublished()->orderBy('date_published', 'desc')->paginate($this->pagination);
+
+        return view('posts.index', compact('posts', 'name', 'surname'));
+    }
+
+    public function scheduled()
+    {
+        $posts = Post::with('User')->isScheduled()->orderBy('date_published', 'desc')->paginate($this->pagination);
+
+        return view('posts.index', compact('posts', 'name', 'surname'));
+    }
+
+    public function drafts()
+    {
+        $posts = Post::with('User')->isDraft()->orderBy('date_published', 'desc')->paginate($this->pagination);
+
+        return view('posts.index', compact('posts', 'name', 'surname'));
+    }
+
+    public function uncategorized()
+    {
         $posts = Post::with('User')->uncategorized()->paginate($this->pagination);
         return view('posts', compact('posts'));
     }
@@ -58,13 +80,13 @@ class PostController extends Controller
             'published' => $request->input('published')
 
         ]);
-         $post->addCategories($request->input('categories'));
+        $post->addCategories($request->input('categories'));
         return redirect('/posts')->with(['success' => 'Successfully created ' . $post->title]);
     }
 
     public function edit(Post $post)
     {
-        $categories= Category::latest()->get();
+        $categories = Category::latest()->get();
         return view('posts.edit', compact('post', 'categories'));
     }
 
@@ -89,7 +111,8 @@ class PostController extends Controller
         return redirect('/posts/')->with(['success' => 'Successfully updated ' . $post->title]);
     }
 
-    public function addCategory(Request $request){
+    public function addCategory(Request $request)
+    {
         $this->validate($request, [
             'category' => 'required|unique:categories,category',
         ]);
