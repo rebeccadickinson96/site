@@ -3,6 +3,15 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+
+                <a href="/posts">All</a>
+
+                <a href="/posts/published">Published</a>
+
+                <a href="/posts/scheduled">Scheduled</a>
+
+                <a href="/posts/drafts">Drafts</a>
+
                 <div class="panel panel-default panel-rbec">
                     <div class="panel-heading">
                         <h2>Posts List<a href="/posts/create" class="btn-add btn btn-primary pull-right">New Post +</a>

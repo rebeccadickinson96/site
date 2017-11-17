@@ -40,5 +40,4 @@ Feature: Editing a post
     And I update the post with title "annemarie" body "I have been edited"
     And I am on "/posts/9867461"
     Then I should see "annemarie"
-    And I should not see "Lorem Ipsum"
-    And I should not see "I am the post body"
+    And I should see "I have been edited"
