@@ -16,30 +16,34 @@ class PostController extends Controller
 
     public function index()
     {
+        $title = 'Posts Index';
         $posts = Post::with('User')->orderBy('date_published', 'desc')->paginate($this->pagination);
 
-        return view('posts.index', compact('posts', 'name', 'surname'));
+        return view('posts.index', compact('posts', 'title'));
     }
 
     public function published()
     {
+        $title = 'Published Posts';
         $posts = Post::with('User')->isPublished()->orderBy('date_published', 'desc')->paginate($this->pagination);
 
-        return view('posts.index', compact('posts', 'name', 'surname'));
+        return view('posts.index', compact('posts', 'title'));
     }
 
     public function scheduled()
     {
+        $title = 'Scheduled Posts';
         $posts = Post::with('User')->isScheduled()->orderBy('date_published', 'desc')->paginate($this->pagination);
 
-        return view('posts.index', compact('posts', 'name', 'surname'));
+        return view('posts.index', compact('posts', 'title'));
     }
 
     public function drafts()
     {
+        $title = 'Draft Posts';
         $posts = Post::with('User')->isDraft()->orderBy('date_published', 'desc')->paginate($this->pagination);
 
-        return view('posts.index', compact('posts', 'name', 'surname'));
+        return view('posts.index', compact('posts', 'title'));
     }
 
     public function uncategorized()

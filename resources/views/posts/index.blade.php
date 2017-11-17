@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Posts Index'])
+@extends('layouts.app', ['title' => $title])
 @section('content')
     <div class="container">
         <div class="row">
