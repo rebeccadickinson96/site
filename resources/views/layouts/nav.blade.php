@@ -28,7 +28,25 @@
                     <li><a class="nav-link" href="/login">Login</a></li>
                     <li><a class="nav-link" href="/register">Register</a></li>
                 @else
-                    <li><a class="nav-link" href="/posts">Posts</a></li>
+                    <li class="dropdown" id="postdropdownmenu">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">
+                            Posts <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="/posts">All</a>
+                            </li>
+                            <li>
+                                <a href="/posts/published">Published</a>
+                            </li>
+                            <li>
+                                <a href="/posts/scheduled">Scheduled</a>
+                            </li>
+                            <li>
+                                <a href="/posts/drafts">Drafts</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li><a class="nav-link" href="/categories">Tags</a></li>
                     <li class="dropdown" id="userdropdownmenu">
                         <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" id="usernamelogout">
