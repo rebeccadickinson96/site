@@ -71,7 +71,8 @@ class FeatureContext extends Mink implements Context
             'title' => $title,
             'body' => $body,
             'date_published' => $date,
-            'user_id' => $userId
+            'user_id' => $userId,
+            'published' => 1
         ]);
 
         factory(CategoryPost::class)->create([
@@ -113,7 +114,8 @@ class FeatureContext extends Mink implements Context
             'title' => $title,
             'body' => $body,
             'date_published' => $date,
-            'user_id' => $userId
+            'user_id' => $userId,
+            'published' => 1
         ]);
 
         factory(CategoryPost::class)->create([

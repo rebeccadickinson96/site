@@ -47,7 +47,6 @@ Feature: Handling Posts
     And I am on "/posts"
     And I should see "Posts List"
     And I should see "Lorem Ipsum"
-    And I should see "I am the post body"
 
   Scenario: The Post should show on the homepage
     Given I add category "baking123" to the database
