@@ -3,8 +3,6 @@ Feature: Testing Post Statuses
   Background: Logged in
     Given I am logged in as Admin
 
-    #accessing the different pages
-
   Scenario: Accessing the posts index page from the homepage
     Given I am on the homepage
     When I follow "Posts"
@@ -33,8 +31,6 @@ Feature: Testing Post Statuses
     Then I am on "/posts/drafts"
     And I should see "Draft Posts"
 
-# this is the same on all pages
-
   Scenario: Accessing the posts page from the posts page
     Given I am on "/posts"
     When I follow "All"
@@ -59,8 +55,43 @@ Feature: Testing Post Statuses
     Then I am on "/posts/drafts"
     And I should see "Draft Posts"
 
-#
+  Scenario: Uploading a draft post
+    Given I am on "posts/create"
+    When I fill in the following:
+      | title | Lorem Ipsum        |
+      | body  | I am a draft post |
+    And I fill in "date_published" with todays date and time
+    And I select "Draft" from "published"
+    And I press "Submit"
+    And I add the draft post to the database
+    Then I am on "/posts"
+    And I should see "Lorem Ipsum"
 
+  Scenario: The draft post is not on the homepage
+    Given I add the draft post to the database
+    And I am on "/posts"
+    When I follow "Posts Experiment"
+    Then I should not see "Lorem Ipsum"
+    And I should not see "I am a draft post"
+
+  Scenario: Uploading a scheduled post
+    Given I am on "posts/create"
+    When I fill in the following:
+      | title | Lorem Ipsum        |
+      | body  | I am a scheduled post |
+    And I fill in "date_published" with the date a month after today
+    And I select "Draft" from "published"
+    And I press "Submit"
+    And I add the scheduled post to the database
+    Then I am on "/posts"
+    And I should see "Lorem Ipsum"
+
+  Scenario: The scheduled post is not on the homepage
+    Given I add the scheduled post to the database
+    And I am on "/posts"
+    When I follow "Posts Experiment"
+    Then I should not see "Lorem Ipsum"
+    And I should not see "I am a scheduled post"
 
 
 

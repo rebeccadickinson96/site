@@ -204,4 +204,54 @@ class FeatureContext extends Mink implements Context
             'description' => $description
         ]);
     }
+
+    /**
+     * @When I fill in :field with todays date and time
+     */
+    public function iFillInWithTodaysDateAndTime($field)
+    {
+        $field = Mink::fixStepArgument($field);
+        $value = Mink::fixStepArgument(Carbon::now()->format('Y-m-d H:i:s'));
+        Mink::getSession()->getPage()->fillField($field, $value);
+    }
+
+    /**
+     * @When I add the draft post to the database
+     */
+    public function iAddTheDraftPostToTheDatabase()
+    {
+        factory(Post::class)->create([
+            'id' => 9867461,
+            'title' => 'Lorem Ipsum',
+            'body' => 'I am a draft post',
+            'date_published' => Carbon::now()->format('Y-m-d H:i:s'),
+            'user_id' => 1,
+            'published' => 0
+        ]);
+    }
+
+    /**
+     * @When I fill in :field with the date a month after today
+     */
+    public function iFillInWithTheDateAMonthAfterToday($field)
+    {
+        $field = Mink::fixStepArgument($field);
+        $value = Mink::fixStepArgument(Carbon::now()->addMonth(1)->format('Y-m-d H:i:s'));
+        Mink::getSession()->getPage()->fillField($field, $value);
+    }
+
+    /**
+     * @When I add the scheduled post to the database
+     */
+    public function iAddTheScheduledPostToTheDatabase()
+    {
+        factory(Post::class)->create([
+            'id' => 9867461,
+            'title' => 'Lorem Ipsum',
+            'body' => 'I am a scheduled post',
+            'date_published' => Carbon::now()->addMonth(1)->format('Y-m-d H:i:s'),
+            'user_id' => 1,
+            'published' => 0
+        ]);
+    }
 }
