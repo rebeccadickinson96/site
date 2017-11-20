@@ -58,7 +58,7 @@ Feature: Testing Post Statuses
   Scenario: Uploading a draft post
     Given I am on "posts/create"
     When I fill in the following:
-      | title | Lorem Ipsum        |
+      | title | Lorem Ipsum       |
       | body  | I am a draft post |
     And I fill in "date_published" with todays date and time
     And I select "Draft" from "published"
@@ -77,7 +77,7 @@ Feature: Testing Post Statuses
   Scenario: Uploading a scheduled post
     Given I am on "posts/create"
     When I fill in the following:
-      | title | Lorem Ipsum        |
+      | title | Lorem Ipsum           |
       | body  | I am a scheduled post |
     And I fill in "date_published" with the date a month after today
     And I select "Draft" from "published"
@@ -93,5 +93,25 @@ Feature: Testing Post Statuses
     Then I should not see "Lorem Ipsum"
     And I should not see "I am a scheduled post"
 
+  Scenario: Update the draft post to a published post
+    Given I add the draft post to the database
+    And I am on "/posts/9867461/edit"
+    When I select "0" from "published"
+    And I press "Submit"
+    And I update the post to published status
+    And I am on "/posts"
+    And I follow "Published"
+    Then I am on "/posts/published"
+    And I should see "Lorem Ipsum"
 
 
+  Scenario: Unpublish a post
+    Given I add a post with title "Lorem Ipsum" body "I am the post body" and  user id "1"
+    And I am on "/posts/9867461/edit"
+    When I select "0" from "published"
+    And I press "Submit"
+    And I update the post to draft status
+    And I am on "/posts"
+    And I follow "Published"
+    Then I am on "/posts/drafts"
+    And I should see "Lorem Ipsum"

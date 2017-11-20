@@ -254,4 +254,42 @@ class FeatureContext extends Mink implements Context
             'published' => 0
         ]);
     }
+
+    /**
+     * @When I update the post to published status
+     */
+    public function iUpdateThePostToPublishedStatus()
+    {
+        $post = Post::find(9867461);
+        $post->update([
+            'published' => 1
+        ]);
+    }
+
+    /**
+     * @When I update the post to draft status
+     */
+    public function iUpdateThePostToDraftStatus()
+    {
+        $post = Post::find(9867461);
+        $post->update([
+            'published' => 0
+        ]);
+    }
+
+    /**
+     * @Given I add a post with title :title body :body and  user id :userId
+     */
+    public function iAddAPostWithTitleBodyAndUserId($title, $body, $userId)
+    {
+        $date = Carbon::now()->subMinutes(1)->format('Y-m-d H:i:s');
+        factory(Post::class)->create([
+            'id' => 9867461,
+            'title' => $title,
+            'body' => $body,
+            'date_published' => $date,
+            'user_id' => $userId,
+            'published' => 1
+        ]);
+    }
 }
