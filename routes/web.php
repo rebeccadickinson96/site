@@ -20,6 +20,9 @@ Route::group(['middleware' => ['auth']], function () {
 
 //posts
     Route::get('/posts/', 'PostController@index');
+    Route::get('/posts/published', 'PostController@published');
+    Route::get('/posts/scheduled', 'PostController@scheduled');
+    Route::get('/posts/drafts', 'PostController@drafts');
     Route::get('/posts/create', 'PostController@create');
     Route::post('posts/', 'PostController@store');
     Route::get('posts/{post}/edit', 'PostController@edit');

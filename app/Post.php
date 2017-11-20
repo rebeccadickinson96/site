@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'body', 'user_id', 'date_published'];
+    protected $fillable = ['title', 'body', 'user_id', 'date_published', 'published'];
     protected $dates = ['date_published'];
 
 
@@ -40,14 +40,15 @@ class Post extends Model
         return back();
     }
 
-    public function addCategories($categories){
+    public function addCategories($categories)
+    {
         $this->categoryPost()->where('post_id', $this->id)->delete();
-        if(!$categories){
+        if (!$categories) {
             return false;
         }
 
-        foreach($categories as $category){
-            if(!$category || !$category['category']){
+        foreach ($categories as $category) {
+            if (!$category || !$category['category']) {
                 continue;
             }
             CategoryPost::create([
@@ -58,32 +59,66 @@ class Post extends Model
         return true;
     }
 
+    public function status()
+    {
+        if ($this->date_published < Carbon::now() && $this->published == 1) {
+            return "Published";
+        }
+
+        if ($this->date_published > Carbon::now() && $this->published == 1) {
+            return "Scheduled";
+        }
+
+        if ($this->published == 0) {
+            return "Draft";
+        }
+        return "Published";
+    }
+
+    public function scopeIsPublished($query)
+    {
+        return $query->where('date_published', '<', Carbon::now())->where('published', 1);
+    }
+
+    public function scopeIsScheduled($query)
+    {
+        return $query->where('date_published', '>', Carbon::now())->where('published', 1);
+    }
+
+    public function scopeIsDraft($query)
+    {
+        return $query->where('published', 0);
+    }
+
     public function scopeFilter($query)
     {
         if ($month = request('month')) {
-            $query->whereMonth('date_published', Carbon::parse($month)->month);
+            $query->whereMonth('date_published', Carbon::parse($month)->month)->isPublished();
         }
 
         if ($year = request('year')) {
-            $query->whereYear('date_published', $year);
+            $query->whereYear('date_published', $year)->isPublished();
         }
         return $query;
     }
 
-    public function scopeUncategorized($query) {
-        return $query->whereDoesntHave('categories')->orderBy('date_published', 'desc');
+    public function scopeUncategorized($query)
+    {
+        return $query->whereDoesntHave('categories')->isPublished()->orderBy('date_published', 'desc');
     }
 
-    public static function archives(){
+    public static function archives()
+    {
         return static::selectRaw('year(date_published) year, monthname(date_published) month, count(*) published')
+            ->isPublished()
             ->groupBy('year', 'month')
             ->orderByRaw('min(date_published) desc')
             ->get();
     }
 
-    public static function noCategories(){
-        return static::whereDoesntHave('categories')->get()->count();
+    public static function noCategories()
+    {
+        return static::whereDoesntHave('categories')->isPublished()->get()->count();
     }
 
 }
-

@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function index()
     {
         $posts = Post::with('user')
-            ->where('date_published', '<', Carbon::now())
+            ->isPublished()
             ->orderBy('date_published', 'desc')
             ->filter()
             ->paginate($this->pagination);

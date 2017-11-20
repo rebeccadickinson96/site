@@ -16,12 +16,38 @@ class PostController extends Controller
 
     public function index()
     {
+        $title = 'Posts Index';
         $posts = Post::with('User')->orderBy('date_published', 'desc')->paginate($this->pagination);
 
-        return view('posts.index', compact('posts', 'name', 'surname'));
+        return view('posts.index', compact('posts', 'title'));
     }
 
-    public function uncategorized(){
+    public function published()
+    {
+        $title = 'Published Posts';
+        $posts = Post::with('User')->isPublished()->orderBy('date_published', 'desc')->paginate($this->pagination);
+
+        return view('posts.index', compact('posts', 'title'));
+    }
+
+    public function scheduled()
+    {
+        $title = 'Scheduled Posts';
+        $posts = Post::with('User')->isScheduled()->orderBy('date_published', 'desc')->paginate($this->pagination);
+
+        return view('posts.index', compact('posts', 'title'));
+    }
+
+    public function drafts()
+    {
+        $title = 'Draft Posts';
+        $posts = Post::with('User')->isDraft()->orderBy('date_published', 'desc')->paginate($this->pagination);
+
+        return view('posts.index', compact('posts', 'title'));
+    }
+
+    public function uncategorized()
+    {
         $posts = Post::with('User')->uncategorized()->paginate($this->pagination);
         return view('posts', compact('posts'));
     }
@@ -46,23 +72,25 @@ class PostController extends Controller
         $this->validate($request, [
             'title' => 'required|max:100',
             'body' => 'required',
-            'date_published' => 'required'
+            'date_published' => 'required',
+            'published' => 'required'
         ]);
 
         $post = Post::create([
             'title' => $request->input('title'),
             'body' => $request->input('body'),
             'user_id' => Auth::id(),
-            'date_published' => Carbon::createFromFormat('d/m/Y H:i', $request->input('date_published'))
+            'date_published' => Carbon::createFromFormat('d/m/Y H:i', $request->input('date_published')),
+            'published' => $request->input('published')
 
         ]);
-         $post->addCategories($request->input('categories'));
+        $post->addCategories($request->input('categories'));
         return redirect('/posts')->with(['success' => 'Successfully created ' . $post->title]);
     }
 
     public function edit(Post $post)
     {
-        $categories= Category::latest()->get();
+        $categories = Category::latest()->get();
         return view('posts.edit', compact('post', 'categories'));
     }
 
@@ -71,21 +99,24 @@ class PostController extends Controller
         $this->validate($request, [
             'title' => 'required|max:100',
             'body' => 'required',
-            'date_published' => 'required'
+            'date_published' => 'required',
+            'published' => 'required'
         ]);
 
         $post->update([
             'title' => $request->input('title'),
             'body' => $request->input('body'),
             'user_id' => Auth::id(),
-            'date_published' => Carbon::createFromFormat('d/m/Y H:i', $request->input('date_published'))
+            'date_published' => Carbon::createFromFormat('d/m/Y H:i', $request->input('date_published')),
+            'published' => $request->input('published')
 
         ]);
         $post->addCategories($request->input('categories'));
-        return redirect('/posts/' . $post->id);
+        return redirect('/posts/'.$post->id)->with(['success' => 'Successfully updated ' . $post->title]);
     }
 
-    public function addCategory(Request $request){
+    public function addCategory(Request $request)
+    {
         $this->validate($request, [
             'category' => 'required|unique:categories,category',
         ]);

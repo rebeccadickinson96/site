@@ -1,7 +1,7 @@
 Feature: Editing a post
 
   Background: Logged in and post exists
-    Given I am logged in as Rebecca Dickinson
+    Given I am logged in as Admin
     And I add category "baking123" to the database
     And post adds to database with title "Lorem Ipsum" body "I am the post body" and  user id "1"
 
@@ -38,8 +38,6 @@ Feature: Editing a post
     And I add category "cooking" to the database with an id of "9992426"
     When I press "Submit"
     And I update the post with title "annemarie" body "I have been edited"
-    And I am on "/posts"
+    And I am on "/posts/9867461"
     Then I should see "annemarie"
     And I should see "I have been edited"
-    And I should not see "Lorem Ipsum"
-    And I should not see "I am the post body"

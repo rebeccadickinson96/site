@@ -1,7 +1,7 @@
 Feature: Editing a tag
 
   Background: Loggedin & category created
-    Given I am logged in as Rebecca Dickinson
+    Given I am logged in as Admin
     And I add category "Entertainment" and description "I am Entertainment" to the database
 
 

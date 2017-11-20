@@ -1,7 +1,7 @@
 Feature: Adding a tag
 
   Background: Logged in
-    Given I am logged in as Rebecca Dickinson
+    Given I am logged in as Admin
 
 
   Scenario: Accessing the tags page

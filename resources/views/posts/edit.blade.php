@@ -23,6 +23,15 @@
                         <input type="text" class="form-control timepicker" id="date_published" name="date_published"
                                value="{{ old('date_published', $post->date_published ? $post->date_published->format('d/m/Y H:i') :Carbon\Carbon::now()->format('d/m/Y H:i')) }}">
                     </div>
+
+                    <div class="form group">
+                        <select name="published">
+                            <option disabled>Please select...</option>
+                            <option value="1" @if($post->published == 1) selected @endif>Published</option>
+                            <option value="0" @if($post->published == 0) selected @endif>Draft</option>
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <label>Post Tags</label>
                         <div class="categories" id="categoriesEdit">

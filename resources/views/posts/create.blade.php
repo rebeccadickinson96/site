@@ -23,6 +23,14 @@
                                value="{{ old('date_published')?:Carbon\Carbon::now()->format('d/m/Y H:i') }}">
                     </div>
 
+                    <div class="form group">
+                        <select name="published">
+                            <option disabled selected>Please select...</option>
+                            <option value="1">Published</option>
+                            <option value="0">Draft</option>
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <label>Post Tags</label>
                         <div class="categories" id="categories">
@@ -42,7 +50,8 @@
                                 </div>
                             @endforeach
                         </div>
-                        <a href="#" data-toggle="modal" data-target="#addCategoryModal" @click="resetErrors" class="btn-add btn btn-primary">
+                        <a href="#" data-toggle="modal" data-target="#addCategoryModal" @click="resetErrors"
+                           class="btn-add btn btn-primary">
                             Add Tag
                         </a>
                     </div>
@@ -105,24 +114,24 @@
                 },
 
                 addCategory: function () {
-                        let module = this;
-                        axios.post('/posts/create/categories',{
-                            category: this.category
-                        })
-                            .then(function (response) {
-                                var $categories = $('#categories');
-                                if(!$categories.has('.checkbox').length){
-                                    $categories.html('');
-                                }
-                                $('#addCategoryModal').modal('hide');
+                    let module = this;
+                    axios.post('/posts/create/categories', {
+                        category: this.category
+                    })
+                        .then(function (response) {
+                            var $categories = $('#categories');
+                            if (!$categories.has('.checkbox').length) {
+                                $categories.html('');
+                            }
+                            $('#addCategoryModal').modal('hide');
 
-                                $categories.append('<div class="checkbox col-xs-12">' +
-                                    '<label><input type="checkbox" name="categories['+ response.data.id +'][category]" value="'+ response.data.id +'"> '+ response.data.category +'</label></div>');
-                            })
-                            .catch(function(error){
-                                module.hasErrors = true;
-                                module.errors.push('' + error.response.data.category + '');
-                            });
+                            $categories.append('<div class="checkbox col-xs-12">' +
+                                '<label><input type="checkbox" name="categories[' + response.data.id + '][category]" value="' + response.data.id + '"> ' + response.data.category + '</label></div>');
+                        })
+                        .catch(function (error) {
+                            module.hasErrors = true;
+                            module.errors.push('' + error.response.data.category + '');
+                        });
                     this.resetData();
                 },
 

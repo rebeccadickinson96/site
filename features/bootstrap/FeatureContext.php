@@ -71,7 +71,8 @@ class FeatureContext extends Mink implements Context
             'title' => $title,
             'body' => $body,
             'date_published' => $date,
-            'user_id' => $userId
+            'user_id' => $userId,
+            'published' => 1
         ]);
 
         factory(CategoryPost::class)->create([
@@ -81,9 +82,9 @@ class FeatureContext extends Mink implements Context
     }
 
     /**
-     * @Given I am logged in as Rebecca Dickinson
+     * @Given I am logged in as Admin
      */
-    public function iAmLoggedInAsRebeccaDickinson()
+    public function iAmLoggedInAsAdmin()
     {
         return array(
             Mink::visit('/login'),
@@ -113,7 +114,8 @@ class FeatureContext extends Mink implements Context
             'title' => $title,
             'body' => $body,
             'date_published' => $date,
-            'user_id' => $userId
+            'user_id' => $userId,
+            'published' => 1
         ]);
 
         factory(CategoryPost::class)->create([
@@ -200,6 +202,94 @@ class FeatureContext extends Mink implements Context
             'id' => 9867461,
             'category' => $category,
             'description' => $description
+        ]);
+    }
+
+    /**
+     * @When I fill in :field with todays date and time
+     */
+    public function iFillInWithTodaysDateAndTime($field)
+    {
+        $field = Mink::fixStepArgument($field);
+        $value = Mink::fixStepArgument(Carbon::now()->format('Y-m-d H:i:s'));
+        Mink::getSession()->getPage()->fillField($field, $value);
+    }
+
+    /**
+     * @When I add the draft post to the database
+     */
+    public function iAddTheDraftPostToTheDatabase()
+    {
+        factory(Post::class)->create([
+            'id' => 9867461,
+            'title' => 'Lorem Ipsum',
+            'body' => 'I am a draft post',
+            'date_published' => Carbon::now()->format('Y-m-d H:i:s'),
+            'user_id' => 1,
+            'published' => 0
+        ]);
+    }
+
+    /**
+     * @When I fill in :field with the date a month after today
+     */
+    public function iFillInWithTheDateAMonthAfterToday($field)
+    {
+        $field = Mink::fixStepArgument($field);
+        $value = Mink::fixStepArgument(Carbon::now()->addMonth(1)->format('Y-m-d H:i:s'));
+        Mink::getSession()->getPage()->fillField($field, $value);
+    }
+
+    /**
+     * @When I add the scheduled post to the database
+     */
+    public function iAddTheScheduledPostToTheDatabase()
+    {
+        factory(Post::class)->create([
+            'id' => 9867461,
+            'title' => 'Lorem Ipsum',
+            'body' => 'I am a scheduled post',
+            'date_published' => Carbon::now()->addMonth(1)->format('Y-m-d H:i:s'),
+            'user_id' => 1,
+            'published' => 0
+        ]);
+    }
+
+    /**
+     * @When I update the post to published status
+     */
+    public function iUpdateThePostToPublishedStatus()
+    {
+        $post = Post::find(9867461);
+        $post->update([
+            'published' => 1
+        ]);
+    }
+
+    /**
+     * @When I update the post to draft status
+     */
+    public function iUpdateThePostToDraftStatus()
+    {
+        $post = Post::find(9867461);
+        $post->update([
+            'published' => 0
+        ]);
+    }
+
+    /**
+     * @Given I add a post with title :title body :body and  user id :userId
+     */
+    public function iAddAPostWithTitleBodyAndUserId($title, $body, $userId)
+    {
+        $date = Carbon::now()->subMinutes(1)->format('Y-m-d H:i:s');
+        factory(Post::class)->create([
+            'id' => 9867461,
+            'title' => $title,
+            'body' => $body,
+            'date_published' => $date,
+            'user_id' => $userId,
+            'published' => 1
         ]);
     }
 }
