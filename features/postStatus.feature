@@ -1,7 +1,7 @@
 Feature: Testing Post Statuses
 
   Background: Logged in
-    Given I am logged in as Rebecca Dickinson
+    Given I am logged in as Admin
 
     #accessing the different pages
 
@@ -33,7 +33,7 @@ Feature: Testing Post Statuses
     Then I am on "/posts/drafts"
     And I should see "Draft Posts"
 
-
+# this is the same on all pages
 
   Scenario: Accessing the posts page from the posts page
     Given I am on "/posts"
@@ -58,6 +58,9 @@ Feature: Testing Post Statuses
     When I follow "Drafts"
     Then I am on "/posts/drafts"
     And I should see "Draft Posts"
+
+#
+
 
 
 

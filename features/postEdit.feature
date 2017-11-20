@@ -1,7 +1,7 @@
 Feature: Editing a post
 
   Background: Logged in and post exists
-    Given I am logged in as Rebecca Dickinson
+    Given I am logged in as Admin
     And I add category "baking123" to the database
     And post adds to database with title "Lorem Ipsum" body "I am the post body" and  user id "1"
 

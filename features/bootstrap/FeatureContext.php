@@ -82,9 +82,9 @@ class FeatureContext extends Mink implements Context
     }
 
     /**
-     * @Given I am logged in as Rebecca Dickinson
+     * @Given I am logged in as Admin
      */
-    public function iAmLoggedInAsRebeccaDickinson()
+    public function iAmLoggedInAsAdmin()
     {
         return array(
             Mink::visit('/login'),

@@ -1,7 +1,7 @@
 Feature: Handling Posts
 
   Background: Checking that a user is logged in
-    Given I am logged in as Rebecca Dickinson
+    Given I am logged in as Admin
 
   Scenario: Accessing the create posts page
     Given I am on "/posts"

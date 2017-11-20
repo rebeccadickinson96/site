@@ -20,7 +20,7 @@ Feature: Commenting on a post
     Then I should see "I am a Comment"
 
   Scenario: commenting logged in
-    Given I am logged in as Rebecca Dickinson
+    Given I am logged in as Admin
     And I am on "/posts/9867461/"
     And I should see "Add a comment"
     When I fill in the following:
