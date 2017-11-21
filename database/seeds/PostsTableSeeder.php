@@ -11,7 +11,9 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Post::class, 5)->create(['published' => 1]);
-        factory(App\Post::class, 5)->create(['published' => 0]);
+        factory(App\Post::class, 3)->create(['user_id' => 1, 'published' => 1]);
+        factory(App\Post::class, 3)->create(['user_id' => 2, 'published' => 1]);
+        factory(App\Post::class, 2)->create(['user_id' => 1, 'published' => 0]);
+        factory(App\Post::class, 2)->create(['user_id' => 2, 'published' => 0]);
     }
 }
