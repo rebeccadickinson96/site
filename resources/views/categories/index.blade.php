@@ -5,8 +5,8 @@
             <div class="col-md-12">
                 <div class="panel panel-default panel-rbec">
                     <div class="panel-heading"><h2>Tag<a href="#" class="btn-add btn btn-primary pull-right"
-                                                                data-toggle="modal"
-                                                                data-target="#addCategoryModal">Add Tag +</a></h2>
+                                                         data-toggle="modal"
+                                                         data-target="#addCategoryModal">Add Tag +</a></h2>
                     </div>
                     @include('partials.success-message')
                     @include('partials.errors')
@@ -23,15 +23,18 @@
                                         <td>{{ $category->category}}</td>
                                         <td>{{ $category->created_at->diffForHumans() }}</td>
                                         <td><a href="#" id="tag{{ $category->id }}" class="btn btn-default pull-left"
-                                               data-toggle="modal" data-target="#editCategoryModal" style="margin-right:5px"
+                                               data-toggle="modal" data-target="#editCategoryModal"
+                                               style="margin-right:5px"
                                                @click="setActiveCategory({{ $category->id }}, '{{ $category->category }}', '{{ $category->description }}')"><i
                                                         class="fa fa-edit"></i></a>
-                                            <form action="/categories/{{ $category->id }}" method="post">
-                                                {{ csrf_field() }}
-                                                {{ method_field('delete') }}
-                                                <button class="btn btn-danger"><i class="fa fa-trash"></i>
-                                                </button>
-                                            </form>
+                                            @can('delete-categories')
+                                                <form action="/categories/{{ $category->id }}" method="post">
+                                                    {{ csrf_field() }}
+                                                    {{ method_field('delete') }}
+                                                    <button class="btn btn-danger"><i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach
