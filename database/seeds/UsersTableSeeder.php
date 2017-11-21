@@ -14,7 +14,15 @@ class UsersTableSeeder extends Seeder
         factory(App\User::class)->create([
             'name' => 'Rebecca Dickinson',
             'email' => 'bexy-d@hotmail.com',
-            'password' => bcrypt('rebecca1996')
+            'password' => bcrypt('Password1'),
+            'role_id' => 1
+        ]);
+
+        factory(App\User::class)->create([
+            'name' => 'Jane Doe',
+            'email' => 'blogsitesub@hotmail.com',
+            'password' => bcrypt('password'),
+            'role_id' => 2
         ]);
     }
 }
