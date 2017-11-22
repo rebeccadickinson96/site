@@ -36,15 +36,17 @@
                             <li>
                                 <a href="/posts">All</a>
                             </li>
-                            <li>
-                                <a href="/posts/published">Published</a>
-                            </li>
-                            <li>
-                                <a href="/posts/scheduled">Scheduled</a>
-                            </li>
-                            <li>
-                                <a href="/posts/drafts">Drafts</a>
-                            </li>
+                            @can('manage-all-posts')
+                                <li>
+                                    <a href="/posts/published">Published</a>
+                                </li>
+                                <li>
+                                    <a href="/posts/scheduled">Scheduled</a>
+                                </li>
+                                <li>
+                                    <a href="/posts/drafts">Drafts</a>
+                                </li>
+                            @endcan
                         </ul>
                     </li>
                     <li><a class="nav-link" href="/categories">Tags</a></li>
