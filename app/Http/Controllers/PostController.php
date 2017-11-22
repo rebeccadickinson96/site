@@ -17,7 +17,12 @@ class PostController extends Controller
     public function index()
     {
         $title = 'Posts Index';
-        $posts = Post::with('User')->orderBy('date_published', 'desc')->paginate($this->pagination);
+        if (Auth::user()->can('manage-all-posts')) {
+            $posts = Post::with('User')->orderBy('date_published', 'desc')->paginate($this->pagination);
+        } else {
+            $posts = Post::with('User')->where('user_id', Auth::user()->id)->orderBy('date_published', 'desc')->paginate($this->pagination);
+        }
+
 
         return view('posts.index', compact('posts', 'title'));
     }
@@ -90,12 +95,19 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
+        if (Auth::user()->cannot('manage-all-posts') && $post->user_id != auth()->user()->id) {
+            return view('errors.403');
+        }
         $categories = Category::latest()->get();
         return view('posts.edit', compact('post', 'categories'));
     }
 
     public function update(Request $request, Post $post)
     {
+        if (Auth::user()->cannot('manage-all-posts') && $post->user_id != auth()->user()->id) {
+            return view('errors.403');
+        }
+
         $this->validate($request, [
             'title' => 'required|max:100',
             'body' => 'required',
@@ -112,7 +124,7 @@ class PostController extends Controller
 
         ]);
         $post->addCategories($request->input('categories'));
-        return redirect('/posts/'.$post->id)->with(['success' => 'Successfully updated ' . $post->title]);
+        return redirect('/posts/' . $post->id)->with(['success' => 'Successfully updated ' . $post->title]);
     }
 
     public function addCategory(Request $request)
