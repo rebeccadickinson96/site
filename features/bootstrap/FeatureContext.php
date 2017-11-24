@@ -3,25 +3,36 @@
 use App\Category;
 use App\CategoryPost;
 use App\Comment;
+use App\Permission;
 use App\Post;
+use App\Role;
+use App\RolePermission;
+use App\User;
+use Illuminate\Support\Facades\App;
 use Behat\Behat\Hook\Scope\AfterStepScope;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext as Mink;
+use Behat\Testwork\Hook\Scope\AfterSuiteScope;
+use Behat\Testwork\Hook\Scope\BeforeSuiteScope;
 use Carbon\Carbon;
 use Laracasts\Behat\Context\DatabaseTransactions;
 use Behat\Mink\Driver\Selenium2Driver;
+use Laracasts\Behat\Context\Migrator;
 use PHPUnit_Framework_Assert as PHPUnit;
 use Tests\TestCase;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 /**
  * Defines application features from the specific context.
  */
 class FeatureContext extends Mink implements Context
 {
+    use Migrator;
     use DatabaseTransactions;
+    use AuthenticatesUsers;
 
     /**
      * Initializes context.
@@ -35,6 +46,29 @@ class FeatureContext extends Mink implements Context
 
     }
 
+    /** @BeforeSuite */
+    public static function setup(BeforeSuiteScope $scope)
+    {
+        if (App::environment('acceptance')) {
+            Artisan::call('db:seed');
+        }
+
+    }
+
+    /** @AfterSuite */
+    public static function tearDown(AfterSuiteScope $scope)
+    {
+        if (App::environment('acceptance')) {
+            Comment::truncate();
+            Post::truncate();
+            Category::truncate();
+            User::truncate();
+            RolePermission::truncate();
+            Permission::truncate();
+            Role::truncate();
+        }
+    }
+
     /**
      * @Given I am logged in as email :email and password :password
      */
@@ -45,7 +79,7 @@ class FeatureContext extends Mink implements Context
             Mink::fillField('email', $email),
             Mink::fillField("password", $password),
             Mink::pressButton("Login"),
-            Mink::assertPageContainsText("logout")
+//            Mink::assertPageContainsText("logout")
         );
     }
 
@@ -79,6 +113,8 @@ class FeatureContext extends Mink implements Context
             'post_id' => 9867462,
             'category_id' => 9992425
         ]);
+        $id = Post::find('9867462');
+        dd($id);
     }
 
     /**
@@ -86,13 +122,14 @@ class FeatureContext extends Mink implements Context
      */
     public function iAmLoggedInAsAdmin()
     {
-        return array(
-            Mink::visit('/login'),
-            Mink::fillField('email', 'bexy-d@hotmail.com'),
-            Mink::fillField("password", "rebecca1996"),
-            Mink::pressButton("Login"),
-            Mink::assertPageContainsText("logout")
-        );
+        $this->visit('/login');
+
+        Mink::visit('/login');
+        Mink::fillField('email', 'bexy-d@hotmail.com');
+        Mink::fillField("password", "Password1");
+        Mink::pressButton("Login");
+        PHPUnit::assertTrue(Auth::check());
+        PHPUnit::assertTrue(Auth::user()->role_id == 1);
     }
 
     /**
@@ -108,7 +145,7 @@ class FeatureContext extends Mink implements Context
      */
     public function postAddsToDatabaseWithTitleBodyAndUserId($title, $body, $userId)
     {
-        $date = Carbon::now()->subMinutes(1)->format('Y-m-d H:i:s');
+        $date = Carbon::now()->subSecond(1)->format('Y-m-d H:i:s');
         factory(Post::class)->create([
             'id' => 9867461,
             'title' => $title,
@@ -291,5 +328,17 @@ class FeatureContext extends Mink implements Context
             'user_id' => $userId,
             'published' => 1
         ]);
+    }
+
+    /**
+     * @Then I am logged in as Subscriber
+     */
+    public function iAmLoggedInAsSubscriber()
+    {
+        Mink::visit('/login');
+        Mink::fillField('email', "blogsitesub@hotmail.com");
+        Mink::fillField("password", "password");
+        Mink::pressButton("Login");
+        PHPUnit::assertTrue(Auth::check());
     }
 }

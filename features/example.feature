@@ -18,7 +18,11 @@ Feature: Testing
     When I fill in "email" with "bexy-d@hotmail.com"
     And I fill in "password" with "rebecca1996"
     And I press "Login"
-    Then I am on the homepage
+    Then I am logged in as Admin
+    And I am on the homepage
     And I should see "Rebecca Dickinson"
     But I should not see "Login"
     And I should not see "Register"
+
+
+    #TODO: tests for each permission. Keep this up for when the users and reports parts are there
