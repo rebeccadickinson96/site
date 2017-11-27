@@ -346,4 +346,23 @@ class FeatureContext extends Mink implements Context
         Mink::pressButton("Login");
         PHPUnit::assertTrue(Auth::check());
     }
+
+    /**
+     * @Then I cannot see the delete button
+     */
+    public function iCannotSeeTheDeleteButton()
+    {
+        $this->assertSession()->elementNotExists('css', '.btn-danger');
+        $this->assertSession()->elementNotExists('css', '.fa-trash');
+    }
+
+    /**
+     * @Then I can see the delete button
+     */
+    public function iCanSeeTheDeleteButton()
+    {
+        $this->assertSession()->elementExists('css', '.btn-danger');
+        $this->assertSession()->elementExists('css', '.fa-trash');
+
+    }
 }

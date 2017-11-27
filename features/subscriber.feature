@@ -11,6 +11,7 @@ Feature: Tests for subscriber role
     But I should not see "Login"
     And I should not see "Register"
 
+
   @sub
   Scenario: Subscriber can't see certain items of dropdown menu
     Given I am logged in as Subscriber
@@ -34,8 +35,22 @@ Feature: Tests for subscriber role
     When I am on "/posts/scheduled"
     Then I should see "403"
 
+
   @sub
   Scenario: Subscriber can't get onto drafts page
     Given I am logged in as Subscriber
     When I am on "/posts/drafts"
     Then I should see "403"
+
+
+  @sub
+  Scenario: Subscriber can't see the delete category buttons
+    Given I am logged in as Subscriber
+    When I am on "/categories"
+    Then I cannot see the delete button
+
+
+  Scenario: Admin can see the delete category buttons
+    Given I am logged in as Admin
+    When I am on "/categories"
+    Then I can see the delete button
