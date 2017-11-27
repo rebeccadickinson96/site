@@ -28,7 +28,7 @@
                                                @click="setActiveCategory({{ $category->id }}, '{{ $category->category }}', '{{ $category->description }}')"><i
                                                         class="fa fa-edit"></i></a>
                                             @can('delete-categories')
-                                                <form action="/categories/{{ $category->id }}" method="post">
+                                                <form action="/categories/{{ $category->id }}/delete" method="post">
                                                     {{ csrf_field() }}
                                                     {{ method_field('delete') }}
                                                     <button class="btn btn-danger"><i class="fa fa-trash"></i>

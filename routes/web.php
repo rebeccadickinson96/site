@@ -37,7 +37,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/categories', 'CategoryController@store');
         Route::post('categories/{category}', 'CategoryController@update');
         Route::group(['middleware' => ['can:delete-categories']], function () {
-            Route::delete('categories/{category}', 'CategoryController@destroy');
+            Route::delete('categories/{category}/delete', 'CategoryController@destroy');
         });
     });
 });

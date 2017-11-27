@@ -50,6 +50,13 @@ class FeatureContext extends Mink implements Context
     public static function setup(BeforeSuiteScope $scope)
     {
         if (App::environment('acceptance')) {
+            Comment::truncate();
+            Post::truncate();
+            Category::truncate();
+            User::truncate();
+            RolePermission::truncate();
+            Permission::truncate();
+            Role::truncate();
             Artisan::call('db:seed');
         }
 
@@ -74,13 +81,11 @@ class FeatureContext extends Mink implements Context
      */
     public function iAmLoggedInAsEmailAndPassword($email, $password)
     {
-        return array(
-            Mink::visit('/login'),
-            Mink::fillField('email', $email),
-            Mink::fillField("password", $password),
-            Mink::pressButton("Login"),
-//            Mink::assertPageContainsText("logout")
-        );
+        Mink::visit('/login');
+        Mink::fillField('email', $email);
+        Mink::fillField("password", $password);
+        Mink::pressButton("Login");
+        PHPUnit::assertTrue(Auth::check());
     }
 
 
