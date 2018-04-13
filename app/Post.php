@@ -21,7 +21,7 @@ class Post extends Model
 
     public function User()
     {
-        return $this->belongsTo(User::class, 'user_id')->withTrashed();
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function categories()
@@ -134,9 +134,10 @@ class Post extends Model
 
     public function transform() {
         return [
+            'id' => $this->id,
             'title' => $this->title,
             'body' => $this->body,
-            'date_published' => $this->date_published,
+            'date_published' => $this->date_published->format('Y-m-d H:i:s'),
             'published' => $this->published,
             'published_by' => $this->User->transform()
         ];
