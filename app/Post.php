@@ -21,7 +21,7 @@ class Post extends Model
 
     public function User()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id')->withTrashed();
     }
 
     public function categories()
@@ -130,6 +130,16 @@ class Post extends Model
     public static function noCategories()
     {
         return static::whereDoesntHave('categories')->isPublished()->get()->count();
+    }
+
+    public function transform() {
+        return [
+            'title' => $this->title,
+            'body' => $this->body,
+            'date_published' => $this->date_published,
+            'published' => $this->published,
+            'published_by' => $this->User->transform()
+        ];
     }
 
 }

@@ -62,4 +62,12 @@ class User extends Authenticatable
         return false;
     }
 
+    public function transform()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name
+        ];
+    }
+
 }
