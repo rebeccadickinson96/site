@@ -17,26 +17,32 @@ Auth::routes();
 
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['can:manage-own-posts']], function () {
+        Route::get('/posts/', 'PostController@index');
+        Route::group(['middleware' => ['can:manage-all-posts']], function () {
+            Route::get('/posts/published', 'PostController@published');
+            Route::get('/posts/scheduled', 'PostController@scheduled');
+            Route::get('/posts/drafts', 'PostController@drafts');
+        });
+        Route::get('/posts/create', 'PostController@create');
+        Route::post('posts/', 'PostController@store');
+        Route::get('posts/{post}/edit', 'PostController@edit');
+        Route::post('posts/{post}', 'PostController@update');
+        Route::delete('posts/{post}', 'PostController@destroy');
+        Route::post('posts/create/categories', 'PostController@addCategory');
+    });
 
-//posts
-    Route::get('/posts/', 'PostController@index');
-    Route::get('/posts/published', 'PostController@published');
-    Route::get('/posts/scheduled', 'PostController@scheduled');
-    Route::get('/posts/drafts', 'PostController@drafts');
-    Route::get('/posts/create', 'PostController@create');
-    Route::post('posts/', 'PostController@store');
-    Route::get('posts/{post}/edit', 'PostController@edit');
-    Route::post('posts/{post}', 'PostController@update');
-    Route::delete('posts/{post}', 'PostController@destroy');
-    Route::post('posts/create/categories', 'PostController@addCategory');
-
-
-//categories
-    Route::get('/categories', 'CategoryController@index');
-    Route::post('/categories', 'CategoryController@store');
-    Route::post('categories/{category}', 'CategoryController@update');
-    Route::delete('categories/{category}', 'CategoryController@destroy');
+    Route::group(['middleware' => ['can:manage-categories']], function () {
+        Route::get('/categories', 'CategoryController@index');
+        Route::post('/categories', 'CategoryController@store');
+        Route::post('categories/{category}', 'CategoryController@update');
+        Route::group(['middleware' => ['can:delete-categories']], function () {
+            Route::delete('categories/{category}/delete', 'CategoryController@destroy');
+        });
+    });
 });
+
+
 Route::get('/tags/uncategorized', 'PostController@uncategorized');
 Route::get('/tags/{tag}', 'CategoryController@filterTag');
 

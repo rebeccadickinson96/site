@@ -3,12 +3,12 @@ Feature: Adding a tag
   Background: Logged in
     Given I am logged in as Admin
 
-
+@logouttest
   Scenario: Accessing the tags page
     Given I am on the homepage
     And I should see "Tags"
-    When I follow "Tags"
-    Then I should be on "/categories"
+#    When I follow "Tags"
+#    Then I should be on "/categories"
 
 
   Scenario: opening the category modal

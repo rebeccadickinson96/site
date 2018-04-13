@@ -12,6 +12,7 @@ Feature: Editing a tag
     And I should see "Tag*"
     And I should see "Description (Optional)"
 
+    @wip
   Scenario: Updating the category
     Given I am on "/categories"
     When I follow "tag9992425"

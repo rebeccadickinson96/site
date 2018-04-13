@@ -30,11 +30,36 @@ class User extends Authenticatable
 
     public function post()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany('App\Post');
     }
 
     public function comment()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany('App\Comment');
     }
+
+    public function role()
+    {
+        return $this->belongsTo('App\Role');
+    }
+
+    public function hasRole($role)
+    {
+        if (is_string($role)) {
+            return $this->role->name == $role;
+        }
+
+        if ($role instanceof Role) {
+            return $role->id == $this->role_id;
+        }
+
+        foreach ($role as $r) {
+            if ($r->name == $this->role->name) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

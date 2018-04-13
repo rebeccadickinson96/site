@@ -5,6 +5,8 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 
 class Post extends Model
 {
@@ -109,11 +111,20 @@ class Post extends Model
 
     public static function archives()
     {
+        if (App::environment('acceptance')) {
+           return static::selectRaw( "strftime('%m', date_published) as month, strftime('%Y',
+                date_published) as year")
+               ->isPublished()
+               ->groupBy('year', 'month')
+               ->orderByRaw('min(date_published) desc')
+               ->get();
+        }
         return static::selectRaw('year(date_published) year, monthname(date_published) month, count(*) published')
             ->isPublished()
             ->groupBy('year', 'month')
             ->orderByRaw('min(date_published) desc')
             ->get();
+
     }
 
     public static function noCategories()

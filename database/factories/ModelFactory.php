@@ -1,5 +1,7 @@
 <?php
+
 use Carbon\Carbon;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -12,6 +14,33 @@ use Carbon\Carbon;
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
+
+$factory->define(App\Role::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'display_name' => $faker->word,
+        'description' => $faker->paragraph
+    ];
+});
+
+$factory->define(App\Permission::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'display_name' => $faker->word,
+    ];
+});
+
+$factory->define(App\Permission::class, function (Faker\Generator $faker) {
+    return [
+        'role_id' => function () {
+            return factory(App\Role::class)->create()->id;
+        },
+        'permission_id' => function () {
+            return factory(App\Permission::class)->create()->id;
+        }
+    ];
+});
+
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
@@ -20,6 +49,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'role_id' => 2
     ];
 });
 

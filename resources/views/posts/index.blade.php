@@ -1,17 +1,22 @@
 @extends('layouts.app', ['title' => $title])
 @section('content')
     <div class="container">
+        @can('manage-all-posts')
+            <div class="row">
+                <div class="col-md-12">
+
+                    <a href="/posts">All</a>
+
+                    <a href="/posts/published">Published</a>
+
+                    <a href="/posts/scheduled">Scheduled</a>
+
+                    <a href="/posts/drafts">Drafts</a>
+                </div>
+            </div>
+        @endcan
         <div class="row">
             <div class="col-md-12">
-
-                <a href="/posts">All</a>
-
-                <a href="/posts/published">Published</a>
-
-                <a href="/posts/scheduled">Scheduled</a>
-
-                <a href="/posts/drafts">Drafts</a>
-
                 <div class="panel panel-default panel-rbec">
                     <div class="panel-heading">
                         <h2>Posts List<a href="/posts/create" class="btn-add btn btn-primary pull-right">New Post +</a>
@@ -26,6 +31,7 @@
                                     <th>Tags</th>
                                     <th>Publish Date</th>
                                     <th>Status</th>
+                                    <th>Posted By</th>
                                     <th>Action</th>
                                 </tr>
                                 @foreach($posts as $post)
@@ -46,6 +52,7 @@
                                         <td>
                                             {{ $post->status() }}
                                         </td>
+                                        <td>{{ $post->user->name }}</td>
                                         <td>
                                             <a class="btn btn-default pull-left" style="margin-right: 5px;"
                                                href="/posts/{{ $post->id }}/edit" id="edit{{$post->id}}"><i
