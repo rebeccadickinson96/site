@@ -30,7 +30,7 @@ $factory->define(App\Permission::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Permission::class, function (Faker\Generator $faker) {
+$factory->define(App\RolePermission::class, function (Faker\Generator $faker) {
     return [
         'role_id' => function () {
             return factory(App\Role::class)->create()->id;
@@ -49,7 +49,8 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
-        'role_id' => 2
+        'role_id' => 2,
+        'api_token' => str_random(60)
     ];
 });
 
