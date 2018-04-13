@@ -1,0 +1,7 @@
+{
+  "name": "Blogsite API",
+  "version": "0.1.0",
+  "description": "API documentation for app calls",
+  "title": "Blogsite",
+  "url" : "http://blogsite.test/api"
+}
