@@ -20,6 +20,8 @@
   },
   "dependencies": {
     "chartjs": "^0.3.24",
+    "datatables.net": "^1.10.19",
+    "datatables.net-dt": "^1.10.19",
     "requirejs": "^2.3.5"
   }
 }
