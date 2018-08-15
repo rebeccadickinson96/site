@@ -36,3 +36,39 @@ $input-color-placeholder: lighten($text-color, 30%);
 
 // Panels
 $panel-default-heading-bg: #fff;
+
+//
+// Colour customisation
+//
+// `!default` allows overriding variables that are defined before @import
+//
+
+// Border between the header (and footer) and the table body
+$table-header-border: 1px solid #111111 !default;
+
+// Border of rows / cells
+$table-body-border: 1px solid #dddddd !default;
+
+// Row background colour (hover, striping etc are all based on this colour and
+// calculated automatically)
+$table-row-background: #ffffff !default;
+
+// Row colour, when selected (tr.selected)
+$table-row-selected: #b0bed9 !default;
+
+// Text colour of the interaction control elements (info, filter, paging etc)
+$table-control-color: #333333 !default;
+
+// Highlight colour of the paging button for the current page
+$table-paging-button-active: #428bca !default;
+
+// Hover colour of paging buttons on mouse over
+$table-paging-button-hover: #428bca !default;
+
+// Colour to use when shading
+$table-shade: black !default;
+
+// jQuery UI stylesheet imports this one - there are just two places where we
+// don't want DataTabels default styles assigned for jQuery UI, so rather than
+// duplicating the whole file, this is the best option
+$jqueryui: false !default;
