@@ -8,7 +8,7 @@
 
                     </div>
                     <div class="panel-body">
-                        <table id="usersIndex" class="display" style="width:100%">
+                        <table id="usersIndex" class="display nowrap" style="width:100%">
                             <thead>
                             <tr>
                                 <th>Name</th>
