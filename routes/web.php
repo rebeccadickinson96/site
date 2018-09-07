@@ -40,6 +40,10 @@ Route::group(['middleware' => ['auth']], function () {
             Route::delete('categories/{category}/delete', 'CategoryController@destroy');
         });
     });
+
+    Route::group(['middleware' => ['can:manage-categories']], function () {
+        Route::get('users', 'UserController@index');
+    });
 });
 
 
