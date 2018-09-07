@@ -19,6 +19,7 @@
     "vue": "^2.5.17"
   },
   "dependencies": {
+    "apidoc": "^0.17.6",
     "chartjs": "^0.3.24",
     "datatables.net": "^1.10.19",
     "datatables.net-dt": "^1.10.19",

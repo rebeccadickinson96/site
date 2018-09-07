@@ -54,7 +54,7 @@ class Post extends Model
                 continue;
             }
             CategoryPost::create([
-                'post_id' => $this->id,
+                'post_id'     => $this->id,
                 'category_id' => $category['category']
             ]);
         }
@@ -112,12 +112,12 @@ class Post extends Model
     public static function archives()
     {
         if (App::environment('acceptance')) {
-           return static::selectRaw( "strftime('%m', date_published) as month, strftime('%Y',
+            return static::selectRaw("strftime('%m', date_published) as month, strftime('%Y',
                 date_published) as year")
-               ->isPublished()
-               ->groupBy('year', 'month')
-               ->orderByRaw('min(date_published) desc')
-               ->get();
+                ->isPublished()
+                ->groupBy('year', 'month')
+                ->orderByRaw('min(date_published) desc')
+                ->get();
         }
         return static::selectRaw('year(date_published) year, monthname(date_published) month, count(*) published')
             ->isPublished()
@@ -130,6 +130,24 @@ class Post extends Model
     public static function noCategories()
     {
         return static::whereDoesntHave('categories')->isPublished()->get()->count();
+    }
+
+    public function transform()
+    {
+        return [
+            'id'             => $this->id,
+            'title'          => $this->title,
+            'body'           => $this->body,
+            'date_published' => $this->date_published->format('Y-m-d H:i:s'),
+            'published'      => $this->published,
+            'published_by'   => $this->User->transform(),
+            'tags'           => $this->categories->map(function ($category) {
+                return $category->transform();
+            }),
+            'comments' => $this->comments->map(function ($comment) {
+                return $comment->transform();
+            })
+        ];
     }
 
 }
