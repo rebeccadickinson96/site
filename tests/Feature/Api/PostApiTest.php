@@ -2,6 +2,9 @@
 
 namespace Tests\Feature\Api;
 
+use App\Category;
+use App\CategoryPost;
+use App\Comment;
 use App\Post;
 use App\User;
 use Tests\TestCase;
@@ -32,6 +35,18 @@ class PostApiTest extends TestCase
             'user_id' => $this->user->id
         ]);
 
+        $comment = factory(Comment::class)->create([
+            'post_id' => $post->id,
+            'user_id' => null
+        ]);
+
+        $tag = factory(Category::class)->create(['category' => str_random()]);
+
+        factory(CategoryPost::class)->create([
+            'post_id'     => $post->id,
+            'category_id' => $tag->id
+        ]);
+
         $this->json('get', 'api/posts/?api_token=' . $this->user->api_token)
             ->assertJsonStructure([
                 'error',
@@ -47,18 +62,23 @@ class PostApiTest extends TestCase
                             'id',
                             'name'
                         ],
+                        'tags'         => [
+                            [
+                                'id',
+                                'tag'
+                            ]
+                        ],
+                        'comments'     => [
+                            [
+                                'body',
+                                'commenter_name',
+                                'date',
+                                'id',
+
+                            ]
+                        ]
                     ]
                 ]
-            ])->assertJsonFragment([
-                'id'             => $post->id,
-                'title'          => $post->title,
-                'body'           => $post->body,
-                'date_published' => $post->date_published->format('Y-m-d H:i:s'),
-                'published'      => $post->published,
-                'published_by'   => [
-                    'id'   => $post->User->id,
-                    'name' => $post->User->name
-                ],
             ]);
     }
 

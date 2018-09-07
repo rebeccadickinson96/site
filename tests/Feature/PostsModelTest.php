@@ -135,11 +135,11 @@ class PostsModelTest extends TestCase
     {
         $post = factory(Post::class)->create();
 
-        $cat1 = factory(Category::class)->create();
+        $cat1 = factory(Category::class)->create(['category' => str_random()]);
 
-        $cat2 = factory(Category::class)->create();
+        $cat2 = factory(Category::class)->create(['category' => str_random()]);
 
-        $cat3 = factory(Category::class)->create();
+        $cat3 = factory(Category::class)->create(['category' => str_random()]);
 
         $categories = [
             $cat1->id => [
@@ -167,11 +167,11 @@ class PostsModelTest extends TestCase
     {
         $post = factory(Post::class)->create();
 
-        $cat1 = factory(Category::class)->create();
+        $cat1 = factory(Category::class)->create(['category' => str_random()]);
 
-        $cat2 = factory(Category::class)->create();
+        $cat2 = factory(Category::class)->create(['category' => str_random()]);
 
-        $cat3 = factory(Category::class)->create();
+        $cat3 = factory(Category::class)->create(['category' => str_random()]);
 
         factory(CategoryPost::class)->create([
             'post_id' => $post->id, 'category_id' => $cat1->id
@@ -206,11 +206,11 @@ class PostsModelTest extends TestCase
     {
         $post = factory(Post::class)->create();
 
-        $cat1 = factory(Category::class)->create();
+        $cat1 = factory(Category::class)->create(['category' => str_random()]);
 
-        $cat2 = factory(Category::class)->create();
+        $cat2 = factory(Category::class)->create(['category' => str_random()]);
 
-        $cat3 = factory(Category::class)->create();
+        $cat3 = factory(Category::class)->create(['category' => str_random()]);
 
         factory(CategoryPost::class)->create([
             'post_id' => $post->id, 'category_id' => $cat1->id
@@ -222,7 +222,7 @@ class PostsModelTest extends TestCase
             'post_id' => $post->id, 'category_id' => $cat3->id
         ]);
 
-        $cat4 = factory(Category::class)->create();
+        $cat4 = factory(Category::class)->create(['category' => str_random()]);
         $categories = [
             $cat1->id => [
                 'category' => $cat1->id

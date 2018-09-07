@@ -25,4 +25,10 @@ class Category extends Model
         return static::whereHas('publishedPosts')->latest()->get();
     }
 
+    public function transform() {
+        return [
+            'id' => $this->id,
+            'tag' => $this->category
+        ];
+    }
 }
