@@ -14,17 +14,21 @@
     "bootstrap-sass": "^3.3.7",
     "cross-env": "^5.2.0",
     "jquery": "^3.3.1",
-    "laravel-mix": "^1.7.2",
+    "laravel-mix": "^2.1.14",
     "lodash": "^4.17.10",
     "vue": "^2.5.17"
   },
   "dependencies": {
+    "ajv": "^6.5.3",
     "apidoc": "^0.17.6",
     "chartjs": "^0.3.24",
     "datatables.net": "^1.10.19",
     "datatables.net-dt": "^1.10.19",
     "datatables.net-responsive": "^2.2.3",
     "datatables.net-responsive-dt": "^2.2.3",
-    "requirejs": "^2.3.5"
+    "imagemin": "^6.0.0",
+    "requirejs": "^2.3.5",
+    "vue-form-generator": "^2.2.2",
+    "vue-form-wizard": "^0.8.4"
   }
 }
