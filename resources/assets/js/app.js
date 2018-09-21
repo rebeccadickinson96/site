@@ -8,6 +8,8 @@
 require('./bootstrap');
 require('datatables.net-dt');
 require('datatables.net-responsive-dt');
+require('vue-form-generator');
+require('vue-form-wizard');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,7 +18,8 @@ require('datatables.net-responsive-dt');
  */
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('report', require('./components/ReportingWizard.vue'));
 
-const app = new Vue({
-    // el: '#app'
-});
+// const app = new Vue({
+//     // el: '#app'
+// });

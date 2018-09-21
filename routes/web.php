@@ -52,5 +52,3 @@ Route::get('/tags/{tag}', 'CategoryController@filterTag');
 
 Route::get('/posts/{post}', 'PostController@show');
 Route::post('posts/{post}/comments', 'CommentController@store');
-
-Route::get('report/create', 'ReportController@create');
