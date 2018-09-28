@@ -60640,6 +60640,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -60653,6 +60655,8 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_form_generator___default.a);
     props: ['id'],
     data: function data() {
         return {
+            errors: [],
+            hasErrors: false,
             model: {
                 category: '',
                 reportComment: ''
@@ -60688,11 +60692,36 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_form_generator___default.a);
     computed: {
         modalId: function modalId() {
             return 'reportPostModal' + this.id;
+        },
+        storeFormUrl: function storeFormUrl() {
+            return 'posts/' + this.id + '/report';
         }
     },
     methods: {
+        clearErrors: function clearErrors() {
+            this.errors = [];
+            this.hasErrors = false;
+        },
+
         onComplete: function onComplete() {
-            alert('Yay. Done!');
+            this.clearErrors();
+            axios.post(this.storeFormUrl, {
+                category: this.model.category,
+                description: this.model.reportComment
+            }).then(function (response) {
+
+                if (!response.data.error) {
+                    this.hasErrors = false;
+                    location.href = '/';
+                }
+                for (var i = 0; i < response.data.message.length; i++) {
+                    this.errors.push(response.data.message[i]);
+                }
+
+                this.hasErrors = true;
+            }.bind(this)).catch(function (error) {
+                console.log(error);
+            });
         },
         validateFirstTab: function validateFirstTab() {
             return this.$refs.firstTabForm.validate();
@@ -60974,7 +61003,25 @@ var render = function() {
                               schema: _vm.secondTabSchema,
                               options: _vm.formOptions
                             }
-                          })
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.hasErrors,
+                                  expression: "hasErrors"
+                                }
+                              ],
+                              staticClass: "alert alert-danger error"
+                            },
+                            _vm._l(_vm.errors, function(error) {
+                              return _c("li", [_vm._v(_vm._s(error))])
+                            })
+                          )
                         ],
                         1
                       )

@@ -38,7 +38,9 @@
                                                     ref="secondTabForm"
                                 >
                                 </vue-form-generator>
-
+                                <div class="alert alert-danger error" v-show="hasErrors">
+                                    <li v-for="error in errors">{{ error }}</li>
+                                </div>
                             </tab-content>
                         </form-wizard>
                     </div>
@@ -62,6 +64,8 @@
         props: ['id'],
         data() {
             return {
+                errors: [],
+                hasErrors:false,
                 model: {
                     category: '',
                     reportComment: ''
@@ -99,11 +103,39 @@
         computed: {
             modalId() {
                 return 'reportPostModal'+this.id;
+            },
+            storeFormUrl() {
+                return 'posts/'+this.id+'/report';
             }
         },
         methods: {
+            clearErrors() {
+                this.errors = [];
+                this.hasErrors = false;
+            },
             onComplete: function () {
-                alert('Yay. Done!');
+                this.clearErrors();
+                axios.post(this.storeFormUrl, {
+                    category: this.model.category,
+                    description: this.model.reportComment,
+                })
+                    .then(function (response) {
+
+                            if (!response.data.error) {
+                                this.hasErrors = false;
+                                location.href = '/';
+                            }
+                            for (var i = 0; i < response.data.message.length; i++) {
+                                this.errors.push(response.data.message[i]);
+                            }
+
+                            this.hasErrors = true;
+
+                        }.bind(this)
+                    )
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             },
             validateFirstTab: function () {
                 return this.$refs.firstTabForm.validate();
