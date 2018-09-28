@@ -34,6 +34,10 @@ class Post extends Model
         return $this->hasMany('App\CategoryPost');
     }
 
+    public function reports() {
+        return $this->hasMany('App\PostReport');
+    }
+
     public function addComment($body)
     {
 

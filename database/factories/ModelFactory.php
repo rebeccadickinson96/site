@@ -92,3 +92,13 @@ $factory->define(App\CategoryPost::class, function (Faker\Generator $faker) {
         }
     ];
 });
+
+$factory->define(App\PostReport::class, function (Faker\Generator $faker) {
+    return [
+        'post_id' => function () {
+            return factory(App\Post::class)->create()->id;
+        },
+        'category' => $faker->word,
+        'description' => $faker->sentence
+    ];
+});
