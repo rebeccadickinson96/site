@@ -45,7 +45,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('users', 'UserController@index');
     });
 
-    Route::get('/reports', 'ReportController@indexPosts')->name('reports.post-index');
+    Route::get('reports', 'ReportController@indexPosts')->name('reports.post-index');
+    Route::get('reports/{report}/review', 'ReportController@reviewPostReport')->name('reports.post-review');
 });
 
 

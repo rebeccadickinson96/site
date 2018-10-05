@@ -36,6 +36,9 @@
                                         <td>
                                         </td>
                                         <td>
+                                            <a class="btn btn-default pull-left" style="margin-right: 5px;"
+                                               href="{{ route('reports.post-review', ['report' => $report->id]) }}"><i
+                                                        class="fa fa-edit"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
