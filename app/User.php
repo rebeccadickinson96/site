@@ -43,6 +43,11 @@ class User extends Authenticatable
         return $this->belongsTo('App\Role');
     }
 
+    public function postReport()
+    {
+        return $this->hasMany('App\PostReport', 'user_id');
+    }
+
     public function hasRole($role)
     {
         if (is_string($role)) {

@@ -99,6 +99,12 @@ $factory->define(App\PostReport::class, function (Faker\Generator $faker) {
             return factory(App\Post::class)->create()->id;
         },
         'category' => $faker->word,
-        'description' => $faker->sentence
+        'description' => $faker->sentence,
+        'user_id' => function () {
+            return factory(App\User::class)->create()->id;
+        },
+        'action' => $faker->word,
+        'reviewer_comment' => $faker->paragraph,
+        'review_date' => Carbon::now()->format('Y-m-d H:i:s')
     ];
 });
