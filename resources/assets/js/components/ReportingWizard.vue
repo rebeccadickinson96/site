@@ -17,16 +17,14 @@
                     </div>
                     <div class="modal-body">
                         <form-wizard @on-complete="onComplete"
-                                     color="gray"
-                                     error-color="#a94442"
-                        >
+                                     color="#278bcf"
+                                     error-color="#a94442">
                             <tab-content title="Report Information"
                                          icon="ti-user" :before-change="validateFirstTab">
                                 <vue-form-generator :model="model"
                                                     :schema="firstTabSchema"
                                                     :options="formOptions"
-                                                    ref="firstTabForm"
-                                >
+                                                    ref="firstTabForm">
 
                                 </vue-form-generator>
                             </tab-content>

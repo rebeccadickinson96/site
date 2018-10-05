@@ -60640,8 +60640,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -60960,7 +60958,7 @@ var render = function() {
                   _c(
                     "form-wizard",
                     {
-                      attrs: { color: "gray", "error-color": "#a94442" },
+                      attrs: { color: "#278bcf", "error-color": "#a94442" },
                       on: { "on-complete": _vm.onComplete }
                     },
                     [
