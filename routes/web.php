@@ -44,6 +44,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['can:manage-categories']], function () {
         Route::get('users', 'UserController@index');
     });
+
+    Route::get('/reports', 'ReportController@indexPosts')->name('reports.post-index');
 });
 
 
