@@ -35,6 +35,14 @@ class Comment extends Model
         }
     }
 
+    public function scopeApproved($query) {
+        return $query->where('approved', 2);
+    }
+
+    public function scopeByPost($query, $post) {
+        return $query->where('post_id', $post);
+    }
+
     public function transform()
     {
         return [

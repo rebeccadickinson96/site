@@ -18,11 +18,11 @@
                             {{ $post->body }}
                         </div>
                     </div>
-                    @if($post->comments->count())
+                    @if($comments->count())
                         <h2>Comments:</h2>
 
                         <ul class="list-group">
-                            @foreach($post->comments as $comment)
+                            @foreach($comments as $comment)
                                 <strong>{{ $comment->created_at->diffForHumans() }} by <a
                                             href="#">{{ $comment->commenter_name }}</a> </strong>
                                 <li class=list-group-item>

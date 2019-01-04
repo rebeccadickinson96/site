@@ -63,7 +63,9 @@ class PostController extends Controller
     {
         $categories = Category::latest()->get();
 
-        return view('posts.show', compact('post', 'categories'));
+        $comments = Comment::byPost($post->id)->approved()->get();
+
+        return view('posts.show', compact('post', 'categories', 'comments'));
 
     }
 
