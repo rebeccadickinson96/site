@@ -44,6 +44,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['can:manage-categories']], function () {
         Route::get('users', 'UserController@index');
     });
+
+    Route::get('reports', 'ReportController@indexPosts')->name('reports.post-index');
+    Route::get('reports/{report}/review', 'ReportController@reviewPostReport')->name('reports.post-review');
 });
 
 
@@ -52,3 +55,4 @@ Route::get('/tags/{tag}', 'CategoryController@filterTag');
 
 Route::get('/posts/{post}', 'PostController@show');
 Route::post('posts/{post}/comments', 'CommentController@store');
+Route::post('posts/{post}/report', 'PostController@reportPost')->name('posts.report');

@@ -28,6 +28,16 @@
                     <li><a class="nav-link" href="/login">Login</a></li>
                     <li><a class="nav-link" href="/register">Register</a></li>
                 @else
+                    <li class="dropdown" id="reportdropdownmenu">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">
+                           Reports <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="{{ route('reports.post-index') }}">All</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="dropdown" id="postdropdownmenu">
                         <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">
                             Posts <i class="fa fa-caret-down"></i>

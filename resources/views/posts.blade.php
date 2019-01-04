@@ -17,9 +17,10 @@
                                 <a href="/tags/{{ $cat }}">{{ $cat }}</a>
                                 @endforeach
                             @endif
+
                         </div>
                         {{ $post->body }}
-                        <div class="blog-post-meta">Comments:({{ $post->comments->count()}})</div>
+                        <div class="blog-post-meta"><p class="pull-left">Comments:({{ $post->comments->count()}})</p> <report id="{{$post->id}}"></report></div>
                     </div>
                 @endforeach
                 {{ $posts->render() }}
@@ -28,4 +29,11 @@
             @include('partials.sidebar')
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        new Vue({
+            el: '#app'
+        });
+    </script>
 @endsection

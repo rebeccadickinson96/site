@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Comment;
 use App\Post;
 use App\Category;
+use App\PostReport;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -147,5 +149,23 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->back()->with(['success' => 'Successfully deleted ' . $title]);
+    }
+
+    public function reportPost(Post $post, Request $request){
+        $validator = Validator::make($request->all(),[
+            'category' => 'required',
+            'description' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => true, 'message' => $validator->messages()->all()]);
+        }
+
+        $report = PostReport::create([
+            'post_id' => $post->id,
+            'category' => $request->input('category'),
+            'description' => $request->input('description'),
+        ]);
+        return response()->json(['report' => $report]);
     }
 }
