@@ -78,7 +78,9 @@ $factory->define(App\Comment::class, function (Faker\Generator $faker) {
         },
         'body' => $faker->paragraph,
         'user_id' => null,
-        'commenter_name' => 'Rebecca Dickinson'
+        'commenter_name' => 'Rebecca Dickinson',
+        'reviewed_by' => null,
+        'approved' => 0
     ];
 });
 

@@ -22,6 +22,19 @@ class Comment extends Model
         return $this->belongsTo('App\User', 'reviewer_id');
     }
 
+    public function getStatusAttribute() {
+        switch($this->approved){
+            case 0:
+                return "pending";
+            case 1:
+                return "declined";
+            case 2:
+                return "approved";
+            default:
+                return "pending";
+        }
+    }
+
     public function transform()
     {
         return [
