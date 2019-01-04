@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    protected $fillable = ['post_id', 'body', 'user_id', 'commenter_name'];
+    protected $fillable = ['post_id', 'body', 'user_id', 'commenter_name', 'approved', 'reviewer_id'];
 
     public function post()
     {
@@ -16,6 +16,10 @@ class Comment extends Model
     public function user()
     {
         return $this->belongsTo('App\User', 'user_id');
+    }
+
+    public function reviewer() {
+        return $this->belongsTo('App\User', 'reviewer_id');
     }
 
     public function transform()
