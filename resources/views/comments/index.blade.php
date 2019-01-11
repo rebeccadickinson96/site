@@ -1,6 +1,6 @@
 @extends('layouts.app', ['title' => ''])
 @section('content')
-    <div class="container">
+    <div class="container" id="comments">
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default panel-rbec">
@@ -35,6 +35,21 @@
                                             {{ $comment->created_at->format('d/m/Y H:i') }}
                                         </td>
                                         <td>
+                                            <form method="post" class=form-inline"
+                                                  action="{{ route('comments.approve', ['comment'=> $comment->id]) }}">
+                                                {{csrf_field()}}
+                                                <div class="form-group">
+                                                    <select class="form-control" name="action">
+                                                        <option value="approve" selected>
+                                                            Approve
+                                                        </option>
+                                                        <option value="decline">
+                                                            Decline
+                                                        </option>
+                                                    </select>
+                                                    <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i></button>
+                                                </div>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

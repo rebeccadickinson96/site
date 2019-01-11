@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    protected $fillable = ['post_id', 'body', 'user_id', 'commenter_name', 'approved', 'reviewer_id'];
+    protected $fillable = ['post_id', 'body', 'user_id', 'commenter_name', 'approved', 'reviewed_by'];
 
     public function post()
     {
@@ -19,7 +19,7 @@ class Comment extends Model
     }
 
     public function reviewer() {
-        return $this->belongsTo('App\User', 'reviewer_id');
+        return $this->belongsTo('App\User', 'reviewed_by');
     }
 
     public function getStatusAttribute() {

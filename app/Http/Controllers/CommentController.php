@@ -32,5 +32,26 @@ class CommentController extends Controller
 
         return view('comments.index', compact('comments'));
     }
-}
 
+    public function approve(Comment $comment, Request $request) {
+
+        if($request->input('action') === "approve") {
+            $comment->update([
+                'approved' => 2,
+                'reviewed_by' => auth()->user()->id
+            ]);
+        } else if ($request->input('action') === "decline") {
+            $comment->update([
+                'approved' => 1,
+                'reviewed_by' => auth()->user()->id
+            ]);
+        }
+        else {
+            $comment->update([
+                'approved' => 0,
+            ]);
+        }
+
+        return back()->with('success', 'Comment successfully moderated');
+    }
+}
