@@ -47,6 +47,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('reports', 'ReportController@indexPosts')->name('reports.post-index');
     Route::get('reports/{report}/review', 'ReportController@reviewPostReport')->name('reports.post-review');
+
+    Route::get('comments', 'CommentController@index')->name('comments.index');
 });
 
 

@@ -60,6 +60,7 @@
                         </ul>
                     </li>
                     <li><a class="nav-link" href="/categories">Tags</a></li>
+                    <li><a class="nav-link" href="/comments">Comments</a></li>
                     <li class="dropdown" id="userdropdownmenu">
                         <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" id="usernamelogout">
                             <i class="fa fa-user fa-fw"></i> {{ Auth::user()->name }} <i class="fa fa-caret-down"></i>

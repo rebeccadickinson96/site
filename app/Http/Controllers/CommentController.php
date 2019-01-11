@@ -26,5 +26,11 @@ class CommentController extends Controller
 
         return back();
     }
+
+    public function index() {
+        $comments = Comment::pending()->paginate(10);
+
+        return view('comments.index', compact('comments'));
+    }
 }
 

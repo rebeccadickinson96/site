@@ -39,6 +39,10 @@ class Comment extends Model
         return $query->where('approved', 2);
     }
 
+    public function scopePending($query) {
+        return $query->where('approved', 0);
+    }
+
     public function scopeByPost($query, $post) {
         return $query->where('post_id', $post);
     }
