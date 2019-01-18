@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CommentPosted;
 use Illuminate\Http\Request;
 use App\Comment;
 use App\Post;
@@ -16,13 +17,17 @@ class CommentController extends Controller
             'commenter_name' => 'required'
         ]);
 
-        Comment::create([
+        $comment = Comment::create([
             'post_id' => $request->input('post_id'),
             'body' => $request->input('body'),
             'user_id' => Auth::id(),
             'commenter_name' => Auth::guest() ? $request->input('commenter_name') : Auth::user()->name,
             'approved' => Auth::user() && Auth::user()->hasRole('admin') ? 2 : 0
         ]);
+
+        if(auth()->guest() || !auth()->user()->hasRole('admin')  ) {
+            event(new CommentPosted($comment));
+        }
 
         return back();
     }
