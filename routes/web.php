@@ -41,15 +41,19 @@ Route::group(['middleware' => ['auth']], function () {
         });
     });
 
-    Route::group(['middleware' => ['can:manage-categories']], function () {
+    Route::group(['middleware' => ['can:manage-users']], function () {
         Route::get('users', 'UserController@index');
     });
 
-    Route::get('reports', 'ReportController@indexPosts')->name('reports.post-index');
-    Route::get('reports/{report}/review', 'ReportController@reviewPostReport')->name('reports.post-review');
+    Route::group(['middleware' => ['can:manage-reports']], function () {
+        Route::get('reports', 'ReportController@indexPosts')->name('reports.post-index');
+        Route::get('reports/{report}/review', 'ReportController@reviewPostReport')->name('reports.post-review');
+    });
 
-    Route::get('comments', 'CommentController@index')->name('comments.index');
-    Route::post('comments/{comment}', 'CommentController@approve')->name('comments.approve');
+    Route::group(['middleware' => ['can:moderate-posts']], function () {
+        Route::get('comments', 'CommentController@index')->name('comments.index');
+        Route::post('comments/{comment}', 'CommentController@approve')->name('comments.approve');
+    });
 });
 
 
