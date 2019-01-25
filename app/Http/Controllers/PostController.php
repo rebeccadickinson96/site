@@ -99,6 +99,9 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
+        if (Auth::user()->cannot('manage-all-posts') && $post->user_id != auth()->user()->id && $post->status() !== 'Published') {
+            return view('errors.403');
+        }
         $categories = Category::latest()->get();
 
         $comments = Comment::byPost($post->id)->approved()->get();
