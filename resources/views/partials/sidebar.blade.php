@@ -15,7 +15,7 @@
             <h2>Tags</h2>
             <ol class="list-unstyled">
                 @foreach($categories as $cat)
-                    <li><a href="/tags/{{ $cat->category }}">{{$cat->category .' ('.$cat->posts()->count().')'}}</a></li>
+                    <li><a href="/tags/{{ $cat->category }}">{{$cat->category .' ('.$cat->posts()->isPublished()->count().')'}}</a></li>
                 @endforeach
                     <li><a href="/tags/uncategorized"> No tags ({{ $uncategorized }})</a></li>
             </ol>
