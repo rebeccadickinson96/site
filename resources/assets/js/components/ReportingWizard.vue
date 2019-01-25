@@ -103,7 +103,7 @@
                 return 'reportPostModal'+this.id;
             },
             storeFormUrl() {
-                return 'posts/'+this.id+'/report';
+                return '../posts/'+this.id+'/report';
             }
         },
         methods: {
