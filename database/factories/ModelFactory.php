@@ -60,7 +60,8 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
         'body' => $faker->paragraph,
         'user_id' => 1,
         'date_published' => Carbon::now(),
-        'published' => 1
+        'published' => 1,
+        'status' => 0
     ];
 });
 
