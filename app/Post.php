@@ -100,6 +100,16 @@ class Post extends Model
         return $query->where('date_published', '>', Carbon::now())->where('published', 1)->where('status', 2);
     }
 
+    public function scopeIsPending($query)
+    {
+        return $query->where('published', 1)->where('status', 0);
+    }
+
+    public function scopeIsDeclined($query)
+    {
+        return $query->where('published', 1)->where('status', 1);
+    }
+
     public function scopeIsDraft($query)
     {
         return $query->where('published', 0);

@@ -32,15 +32,25 @@ class PostController extends Controller
     public function published()
     {
         $title = 'Published Posts';
-        $posts = Post::with('User')->isPublished()->orderBy('date_published', 'desc')->paginate($this->pagination);
+        if (Auth::user()->can('manage-all-posts')) {
+            $posts = Post::with('User')->isPublished()->orderBy('date_published', 'desc')->paginate($this->pagination);
+        } else {
+            $posts = Post::with('User')->isPublished()->where('user_id', Auth::user()->id)->orderBy('date_published', 'desc')->paginate($this->pagination);
+        }
 
         return view('posts.index', compact('posts', 'title'));
     }
 
     public function scheduled()
     {
+
         $title = 'Scheduled Posts';
-        $posts = Post::with('User')->isScheduled()->orderBy('date_published', 'desc')->paginate($this->pagination);
+
+        if (Auth::user()->can('manage-all-posts')) {
+            $posts = Post::with('User')->isScheduled()->orderBy('date_published', 'desc')->paginate($this->pagination);
+        } else {
+            $posts = Post::with('User')->isScheduled()->where('user_id', Auth::user()->id)->orderBy('date_published', 'desc')->paginate($this->pagination);
+        }
 
         return view('posts.index', compact('posts', 'title'));
     }
@@ -48,7 +58,35 @@ class PostController extends Controller
     public function drafts()
     {
         $title = 'Draft Posts';
-        $posts = Post::with('User')->isDraft()->orderBy('date_published', 'desc')->paginate($this->pagination);
+        if (Auth::user()->can('manage-all-posts')) {
+            $posts = Post::with('User')->isDraft()->orderBy('date_published', 'desc')->paginate($this->pagination);
+        } else {
+            $posts = Post::with('User')->isDraft()->where('user_id', Auth::user()->id)->orderBy('date_published', 'desc')->paginate($this->pagination);
+        }
+
+        return view('posts.index', compact('posts', 'title'));
+    }
+
+    public function pending()
+    {
+        $title = 'Pending Posts';
+        if (Auth::user()->can('manage-all-posts')) {
+            $posts = Post::with('User')->isPending()->orderBy('date_published', 'desc')->paginate($this->pagination);
+        } else {
+            $posts = Post::with('User')->isPending()->where('user_id', Auth::user()->id)->orderBy('date_published', 'desc')->paginate($this->pagination);
+        }
+
+        return view('posts.index', compact('posts', 'title'));
+    }
+
+    public function declined()
+    {
+        $title = 'Declined Posts';
+        if (Auth::user()->can('manage-all-posts')) {
+            $posts = Post::with('User')->isDeclined()->orderBy('date_published', 'desc')->paginate($this->pagination);
+        } else {
+            $posts = Post::with('User')->isDeclined()->where('user_id', Auth::user()->id)->orderBy('date_published', 'desc')->paginate($this->pagination);
+        }
 
         return view('posts.index', compact('posts', 'title'));
     }

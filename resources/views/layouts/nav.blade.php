@@ -48,17 +48,22 @@
                             <li>
                                 <a href="/posts">All</a>
                             </li>
-                            @can('manage-all-posts')
-                                <li>
-                                    <a href="/posts/published">Published</a>
-                                </li>
-                                <li>
-                                    <a href="/posts/scheduled">Scheduled</a>
-                                </li>
-                                <li>
-                                    <a href="/posts/drafts">Drafts</a>
-                                </li>
-                            @endcan
+
+                            <li>
+                                <a href="/posts/published">Published</a>
+                            </li>
+                            <li>
+                                <a href="/posts/scheduled">Scheduled</a>
+                            </li>
+                            <li>
+                                <a href="/posts/drafts">Drafts</a>
+                            </li>
+                            <li>
+                                <a href="/posts/pending">Pending</a>
+                            </li>
+                            <li>
+                                <a href="/posts/declined">Declined</a>
+                            </li>
                         </ul>
                     </li>
                     @can('manage-all-posts')

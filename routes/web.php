@@ -19,12 +19,14 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['can:manage-own-posts']], function () {
         Route::get('/posts/', 'PostController@index');
-        Route::group(['middleware' => ['can:manage-all-posts']], function () {
-            Route::get('/posts/published', 'PostController@published');
-            Route::get('/posts/scheduled', 'PostController@scheduled');
-            Route::get('/posts/drafts', 'PostController@drafts');
-        });
+        Route::get('/posts/published', 'PostController@published');
+        Route::get('/posts/scheduled', 'PostController@scheduled');
+        Route::get('/posts/drafts', 'PostController@drafts');
+        Route::get('/posts/pending', 'PostController@pending');
+        Route::get('/posts/declined', 'PostController@declined');
+
         Route::get('/posts/create', 'PostController@create');
+
         Route::post('posts/', 'PostController@store');
         Route::get('posts/{post}/edit', 'PostController@edit');
         Route::post('posts/{post}', 'PostController@update');
