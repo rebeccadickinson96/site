@@ -3,18 +3,18 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default panel-rbec">
-                    <div class="panel-body">
+                <div class="card card-default card-rbec">
+                    <div class="card-body">
                         <p>{{ $report->post->title }}</p>
                         <p>{{ $report->post->body }}</p>
                     </div>
                 </div>
 
-                <div class="panel panel-default panel-rbec">
-                    <div class="panel-heading">
+                <div class="card card-default card-rbec">
+                    <div class="card-header">
                         Report Details
                     </div>
-                    <div class="panel-body">
+                    <div class="card-body">
                         <p>{{ $report->category }}</p>
                         <p>{{ $report->description }}</p>
                     </div>

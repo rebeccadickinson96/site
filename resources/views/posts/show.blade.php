@@ -13,8 +13,8 @@
                         @endforeach
                         @endif
                     </div>
-                    <div class="panel panel-default panel-rbec">
-                        <div class="panel-body">
+                    <div class="card card-default card-rbec">
+                        <div class="card-body">
                             {{ $post->body }}
                         </div>
                     </div>
