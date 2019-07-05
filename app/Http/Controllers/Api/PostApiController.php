@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Debugger;
 
 class PostApiController extends ApiController
 {
@@ -69,7 +70,7 @@ class PostApiController extends ApiController
     public function index()
     {
 
-        $posts = Post::with('User', 'comments', 'categories')->get()->map(function ($project) {
+        $posts = Post::with('User', 'comments', 'categories')->isPublished()->get()->map(function ($project) {
             return $project->transform();
         });
 
