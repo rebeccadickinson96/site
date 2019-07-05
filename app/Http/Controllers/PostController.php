@@ -131,7 +131,8 @@ class PostController extends Controller
             'body' => $request->input('body'),
             'user_id' => Auth::id(),
             'date_published' => Carbon::createFromFormat('d/m/Y H:i', $request->input('date_published')),
-            'published' => $request->input('published')
+            'published' => $request->input('published'),
+            'status' => auth()->user()->role->name === 'admin' ? 2 : 0
 
         ]);
         $post->addCategories($request->input('categories'));
@@ -165,7 +166,8 @@ class PostController extends Controller
             'body' => $request->input('body'),
             'user_id' => Auth::id(),
             'date_published' => Carbon::createFromFormat('d/m/Y H:i', $request->input('date_published')),
-            'published' => $request->input('published')
+            'published' => $request->input('published'),
+            'status' => $post->status
 
         ]);
         $post->addCategories($request->input('categories'));
