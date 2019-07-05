@@ -60692,7 +60692,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_form_generator___default.a);
             return 'reportPostModal' + this.id;
         },
         storeFormUrl: function storeFormUrl() {
-            return 'posts/' + this.id + '/report';
+            return '../posts/' + this.id + '/report';
         }
     },
     methods: {

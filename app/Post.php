@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'body', 'user_id', 'date_published', 'published'];
+    protected $fillable = ['title', 'body', 'user_id', 'date_published', 'published', 'status'];
     protected $dates = ['date_published'];
 
 
@@ -67,28 +67,47 @@ class Post extends Model
 
     public function status()
     {
-        if ($this->date_published < Carbon::now() && $this->published == 1) {
-            return "Published";
-        }
-
-        if ($this->date_published > Carbon::now() && $this->published == 1) {
-            return "Scheduled";
-        }
-
         if ($this->published == 0) {
             return "Draft";
         }
-        return "Published";
+
+        if($this->status == 1) {
+            return 'Declined';
+        }
+
+        if ($this->date_published < Carbon::now() && $this->published == 1 && $this->status == 2) {
+            return "Published";
+        }
+
+        if ($this->date_published > Carbon::now() && $this->published == 1 && $this->status == 2) {
+            return "Scheduled";
+        }
+
+        if($this->status == 0 && $this->published == 1) {
+            return "Pending";
+        }
+
+        return "Pending";
     }
 
     public function scopeIsPublished($query)
     {
-        return $query->where('date_published', '<', Carbon::now())->where('published', 1);
+        return $query->where('date_published', '<', Carbon::now())->where('published', 1)->where('status', 2);
     }
 
     public function scopeIsScheduled($query)
     {
-        return $query->where('date_published', '>', Carbon::now())->where('published', 1);
+        return $query->where('date_published', '>', Carbon::now())->where('published', 1)->where('status', 2);
+    }
+
+    public function scopeIsPending($query)
+    {
+        return $query->where('published', 1)->where('status', 0);
+    }
+
+    public function scopeIsDeclined($query)
+    {
+        return $query->where('published', 1)->where('status', 1);
     }
 
     public function scopeIsDraft($query)

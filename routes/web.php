@@ -19,12 +19,14 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['can:manage-own-posts']], function () {
         Route::get('/posts/', 'PostController@index');
-        Route::group(['middleware' => ['can:manage-all-posts']], function () {
-            Route::get('/posts/published', 'PostController@published');
-            Route::get('/posts/scheduled', 'PostController@scheduled');
-            Route::get('/posts/drafts', 'PostController@drafts');
-        });
+        Route::get('/posts/published', 'PostController@published');
+        Route::get('/posts/scheduled', 'PostController@scheduled');
+        Route::get('/posts/drafts', 'PostController@drafts');
+        Route::get('/posts/pending', 'PostController@pending');
+        Route::get('/posts/declined', 'PostController@declined');
+
         Route::get('/posts/create', 'PostController@create');
+
         Route::post('posts/', 'PostController@store');
         Route::get('posts/{post}/edit', 'PostController@edit');
         Route::post('posts/{post}', 'PostController@update');
@@ -41,12 +43,19 @@ Route::group(['middleware' => ['auth']], function () {
         });
     });
 
-    Route::group(['middleware' => ['can:manage-categories']], function () {
+    Route::group(['middleware' => ['can:manage-users']], function () {
         Route::get('users', 'UserController@index');
     });
 
-    Route::get('reports', 'ReportController@indexPosts')->name('reports.post-index');
-    Route::get('reports/{report}/review', 'ReportController@reviewPostReport')->name('reports.post-review');
+    Route::group(['middleware' => ['can:manage-reports']], function () {
+        Route::get('reports', 'ReportController@indexPosts')->name('reports.post-index');
+        Route::get('reports/{report}/review', 'ReportController@reviewPostReport')->name('reports.post-review');
+    });
+
+    Route::group(['middleware' => ['can:moderate-posts']], function () {
+        Route::get('comments', 'CommentController@index')->name('comments.index');
+        Route::post('comments/{comment}', 'CommentController@approve')->name('comments.approve');
+    });
 });
 
 

@@ -22,7 +22,9 @@ class Category extends Model
 
     public static function allCategories()
     {
-        return static::whereHas('publishedPosts')->latest()->get();
+        return static::whereHas('publishedPosts')->latest()->get()->sortByDesc(function ($tag) {
+            return $tag->publishedPosts()->count();
+        });
     }
 
     public function transform() {

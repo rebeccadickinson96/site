@@ -20,7 +20,7 @@
 
                         </div>
                         {{ $post->body }}
-                        <div class="blog-post-meta"><p class="pull-left">Comments:({{ $post->comments->count()}})</p> <report id="{{$post->id}}"></report></div>
+                        <div class="blog-post-meta"><p class="pull-left">Comments:({{ $post->comments->where('approved', 2)->count()}})</p> <report id="{{$post->id}}"></report></div>
                     </div>
                 @endforeach
                 {{ $posts->render() }}

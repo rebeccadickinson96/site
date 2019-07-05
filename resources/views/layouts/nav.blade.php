@@ -28,16 +28,18 @@
                     <li><a class="nav-link" href="/login">Login</a></li>
                     <li><a class="nav-link" href="/register">Register</a></li>
                 @else
-                    <li class="dropdown" id="reportdropdownmenu">
-                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">
-                           Reports <i class="fa fa-caret-down"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li>
-                                <a href="{{ route('reports.post-index') }}">All</a>
-                            </li>
-                        </ul>
-                    </li>
+                    @can('manage-reports')
+                        <li class="dropdown" id="reportdropdownmenu">
+                            <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">
+                                Reports <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li>
+                                    <a href="{{ route('reports.post-index') }}">All</a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endcan
                     <li class="dropdown" id="postdropdownmenu">
                         <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">
                             Posts <i class="fa fa-caret-down"></i>
@@ -46,20 +48,30 @@
                             <li>
                                 <a href="/posts">All</a>
                             </li>
-                            @can('manage-all-posts')
-                                <li>
-                                    <a href="/posts/published">Published</a>
-                                </li>
-                                <li>
-                                    <a href="/posts/scheduled">Scheduled</a>
-                                </li>
-                                <li>
-                                    <a href="/posts/drafts">Drafts</a>
-                                </li>
-                            @endcan
+
+                            <li>
+                                <a href="/posts/published">Published</a>
+                            </li>
+                            <li>
+                                <a href="/posts/scheduled">Scheduled</a>
+                            </li>
+                            <li>
+                                <a href="/posts/drafts">Drafts</a>
+                            </li>
+                            <li>
+                                <a href="/posts/pending">Pending</a>
+                            </li>
+                            <li>
+                                <a href="/posts/declined">Declined</a>
+                            </li>
                         </ul>
                     </li>
-                    <li><a class="nav-link" href="/categories">Tags</a></li>
+                    @can('manage-all-posts')
+                        <li><a class="nav-link" href="/categories">Tags</a></li>
+                    @endcan
+                    @can('moderate-comments')
+                        <li><a class="nav-link" href="/comments">Comments</a></li>
+                    @endcan
                     <li class="dropdown" id="userdropdownmenu">
                         <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" id="usernamelogout">
                             <i class="fa fa-user fa-fw"></i> {{ Auth::user()->name }} <i class="fa fa-caret-down"></i>

@@ -1,20 +1,22 @@
 @extends('layouts.app', ['title' => $title])
 @section('content')
     <div class="container">
-        @can('manage-all-posts')
-            <div class="row">
-                <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
 
-                    <a href="/posts">All</a>
+                <a href="/posts">All</a>
 
-                    <a href="/posts/published">Published</a>
+                <a href="/posts/published">Published</a>
 
-                    <a href="/posts/scheduled">Scheduled</a>
+                <a href="/posts/scheduled">Scheduled</a>
 
-                    <a href="/posts/drafts">Drafts</a>
-                </div>
+                <a href="/posts/drafts">Drafts</a>
+
+                <a href="/posts/pending">Pending</a>
+
+                <a href="/posts/declined">Declined</a>
             </div>
-        @endcan
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default panel-rbec">

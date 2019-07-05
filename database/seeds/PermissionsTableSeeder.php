@@ -19,6 +19,8 @@ class PermissionsTableSeeder extends Seeder
             ['id' => 4, 'name' => 'delete-categories', 'display_name' => 'Delete Categories', 'created_at' => Carbon::now()],
             ['id' => 5, 'name' => 'manage-users', 'display_name' => 'Manage Users', 'created_at' => Carbon::now()],
             ['id' => 6, 'name' => 'manage-reports', 'display_name' => 'Manage Reports', 'created_at' => Carbon::now()],
+            ['id' => 7, 'name' => 'moderate-comments', 'display_name' => 'Moderate Comments', 'created_at' => Carbon::now()],
+            ['id' => 8, 'name' => 'moderate-posts', 'display_name' => 'Moderate Posts', 'created_at' => Carbon::now()],
         ]);
     }
 }
