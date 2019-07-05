@@ -3,14 +3,14 @@
     <div id="categories" class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default panel-rbec">
-                    <div class="panel-heading"><h2>Tag<a href="#" class="btn-add btn btn-primary pull-right"
+                <div class="card card-default card-rbec">
+                    <div class="card-header"><h2>Tag<a href="#" class="btn-add btn btn-primary float-right"
                                                          data-toggle="modal"
                                                          data-target="#addCategoryModal">Add Tag +</a></h2>
                     </div>
                     @include('partials.success-message')
                     @include('partials.errors')
-                    <div class="panel-body">
+                    <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <tr>
@@ -22,7 +22,7 @@
                                     <tr>
                                         <td>{{ $category->category}}</td>
                                         <td>{{ $category->created_at->diffForHumans() }}</td>
-                                        <td><a href="#" id="tag{{ $category->id }}" class="btn btn-default pull-left"
+                                        <td><a href="#" id="tag{{ $category->id }}" class="btn btn-default float-left"
                                                data-toggle="modal" data-target="#editCategoryModal"
                                                style="margin-right:5px"
                                                @click="setActiveCategory({{ $category->id }}, '{{ $category->category }}', '{{ $category->description }}')"><i
@@ -42,7 +42,7 @@
                         </div>
 
                     </div>
-                    <div class="panel-footer">
+                    <div class="card-footer">
                         {{ $categories->render() }}
                     </div>
                 </div>

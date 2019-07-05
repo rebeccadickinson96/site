@@ -19,13 +19,13 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default panel-rbec">
-                    <div class="panel-heading">
-                        <h2>Posts List<a href="/posts/create" class="btn-add btn btn-primary pull-right">New Post +</a>
+                <div class="card card-default card-rbec">
+                    <div class="card-header">
+                        <h2>Posts List<a href="/posts/create" class="btn-add btn btn-primary float-right">New Post +</a>
                         </h2>
                     </div>
                     @include('partials.success-message')
-                    <div class="panel-body">
+                    <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <tr>
@@ -56,7 +56,7 @@
                                         </td>
                                         <td>{{ $post->user->name }}</td>
                                         <td>
-                                            <a class="btn btn-default pull-left" style="margin-right: 5px;"
+                                            <a class="btn btn-default float-left" style="margin-right: 5px;"
                                                href="/posts/{{ $post->id }}/edit" id="edit{{$post->id}}"><i
                                                         class="fa fa-edit"></i></a>
                                             <form action="/posts/{{$post->id}}" method="post">
@@ -70,7 +70,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="panel-footer">
+                    <div class="card-footer">
                         {{ $posts->render() }}
                     </div>
                 </div>

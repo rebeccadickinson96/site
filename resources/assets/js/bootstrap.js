@@ -7,9 +7,12 @@ window._ = require('lodash');
  * code may be modified to fit the specific needs of your application.
  */
 
-window.$ = window.jQuery = require('jquery');
+try {
+  window.Popper = require('popper.js').default;
+  window.$ = window.jQuery = require('jquery');
 
-require('bootstrap-sass');
+  require('bootstrap');
+} catch (e) {}
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces

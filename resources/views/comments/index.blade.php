@@ -3,14 +3,14 @@
     <div class="container" id="comments">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default panel-rbec">
-                    <div class="panel-heading">
+                <div class="card card-default card-rbec">
+                    <div class="card-header">
                         <h2>
                             Pending Comments
                         </h2>
                     </div>
                     @include('partials.success-message')
-                    <div class="panel-body">
+                    <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <tr>
@@ -56,7 +56,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="panel-footer">
+                    <div class="card-footer">
                         {{ $comments->render() }}
                     </div>
                 </div>

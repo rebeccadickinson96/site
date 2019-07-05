@@ -3,13 +3,13 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default panel-rbec">
-                    <div class="panel-heading">
+                <div class="card card-default card-rbec">
+                    <div class="card-header">
                         <h2>Post Reports
                         </h2>
                     </div>
                     @include('partials.success-message')
-                    <div class="panel-body">
+                    <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <tr>
@@ -36,7 +36,7 @@
                                         <td>
                                         </td>
                                         <td>
-                                            <a class="btn btn-default pull-left" style="margin-right: 5px;"
+                                            <a class="btn btn-default float-left" style="margin-right: 5px;"
                                                href="{{ route('reports.post-review', ['report' => $report->id]) }}"><i
                                                         class="fa fa-edit"></i></a>
                                         </td>
@@ -45,7 +45,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="panel-footer">
+                    <div class="card-footer">
                         {{ $reports->render() }}
                     </div>
                 </div>
