@@ -17,11 +17,11 @@
                     </div>
                     <div class="modal-body">
                         <form-wizard @on-complete="onComplete"
-                                     color="#278bcf"
+                                     color="#171738"
                                      error-color="#a94442" title="Report a post"
                                      subtitle="Follow the steps to report a post.">
                             <tab-content title="Report Information"
-                                         icon="ti-user" :before-change="validateFirstTab">
+                                         icon="fa fa-user" :before-change="validateFirstTab">
                                 <vue-form-generator :model="model"
                                                     :schema="firstTabSchema"
                                                     :options="formOptions"
@@ -30,7 +30,7 @@
                                 </vue-form-generator>
                             </tab-content>
                             <tab-content title="Report Comment"
-                                         icon="ti-settings" :before-change="validateSecondTab">
+                                         icon="fa fa-comment" :before-change="validateSecondTab">
                                 <vue-form-generator :model="model"
                                                     :schema="secondTabSchema"
                                                     :options="formOptions"
