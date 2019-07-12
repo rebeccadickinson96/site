@@ -1,7 +1,7 @@
 <template>
     <div id="report">
 
-        <a href="#" class="pull-right" data-toggle="modal"
+        <a href="#" class="float-right" data-toggle="modal"
                 :data-target="'#'+modalId">
             Report
         </a>
@@ -13,12 +13,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                         ><span
                                 aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Report</h4>
+
                     </div>
                     <div class="modal-body">
                         <form-wizard @on-complete="onComplete"
                                      color="#278bcf"
-                                     error-color="#a94442">
+                                     error-color="#a94442" title="Report a post"
+                                     subtitle="Follow the steps to report a post.">
                             <tab-content title="Report Information"
                                          icon="ti-user" :before-change="validateFirstTab">
                                 <vue-form-generator :model="model"
