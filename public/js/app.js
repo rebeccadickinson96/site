@@ -1952,6 +1952,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -54811,7 +54812,7 @@ var render = function() {
     _c(
       "a",
       {
-        staticClass: "pull-right",
+        staticClass: "float-right",
         attrs: {
           href: "#",
           "data-toggle": "modal",
@@ -54842,7 +54843,12 @@ var render = function() {
                   _c(
                     "form-wizard",
                     {
-                      attrs: { color: "#278bcf", "error-color": "#a94442" },
+                      attrs: {
+                        color: "#278bcf",
+                        "error-color": "#a94442",
+                        title: "Report a post",
+                        subtitle: "Follow the steps to report a post."
+                      },
                       on: { "on-complete": _vm.onComplete }
                     },
                     [
@@ -54938,9 +54944,7 @@ var staticRenderFns = [
           }
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      ),
-      _vm._v(" "),
-      _c("h4", { staticClass: "modal-title" }, [_vm._v("Report")])
+      )
     ])
   }
 ]
@@ -67114,8 +67118,8 @@ __webpack_require__(/*! vue-form-wizard */ "./node_modules/vue-form-wizard/dist/
  */
 
 
-Vue.component('example', __webpack_require__(/*! ./components/Example.vue */ "./resources/assets/js/components/Example.vue"));
-Vue.component('report', __webpack_require__(/*! ./components/ReportingWizard.vue */ "./resources/assets/js/components/ReportingWizard.vue")); // const app = new Vue({
+Vue.component('example', __webpack_require__(/*! ./components/Example.vue */ "./resources/assets/js/components/Example.vue")["default"]);
+Vue.component('report', __webpack_require__(/*! ./components/ReportingWizard.vue */ "./resources/assets/js/components/ReportingWizard.vue")["default"]); // const app = new Vue({
 //     // el: '#app'
 // });
 

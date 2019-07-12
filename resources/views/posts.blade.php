@@ -1,6 +1,6 @@
 @extends('layouts.app', ['title' => config('app.name', 'Laravel')])
 @section('content')
-    <div class="container">
+    <div class="container" id="posts">
         <div class="row">
 
             <div class="col-md-8 blog-main">
@@ -33,7 +33,7 @@
 @section('scripts')
     <script>
         new Vue({
-            el: '#app'
+            el: '#posts'
         });
     </script>
 @endsection
