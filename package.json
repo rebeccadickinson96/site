@@ -24,7 +24,7 @@
     "vue-template-compiler": "^2.6.10"
   },
   "dependencies": {
-    "ajv": "^6.10.0",
+    "ajv": "^6.12.3",
     "apidoc": "^0.17.7",
     "chartjs": "^0.3.24",
     "datatables.net": "^1.10.19",
